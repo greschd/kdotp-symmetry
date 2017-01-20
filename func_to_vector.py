@@ -14,6 +14,9 @@ def func_to_vector(
         random_fct=lambda: random.randint(-100, 100)
     ):
     dim = len(basis)
+    # create random values for the coordinates and evaluate 
+    # both the basis functions and the expression to generate
+    # the linear equation to be solved
     A = []
     b = []
     for _ in range(2 * dim):
@@ -23,6 +26,8 @@ def func_to_vector(
         A.append([b.subs(vals) for b in basis])
         b.append(expr.subs(vals))
     else:
+        # this could happen if the random_fct is bad, or the 'basis' is not
+        # linearly independent
         raise ValueError('Could not find a sufficient number of linearly independent vectors')
 
     res = sp.linsolve((sp.Matrix(A), sp.Matrix(b)), sp.symbols('a b c'))
