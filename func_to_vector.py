@@ -6,7 +6,7 @@
 import random
 import sympy as sp
 
-def to_vector(
+def func_to_vector(
         expr,
         basis,
         *,
