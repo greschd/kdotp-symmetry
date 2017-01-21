@@ -55,14 +55,14 @@ def _assert_onb(basis):
             else:
                 assert frobenius_product(bi, bj) == 0
 
-def hermitian_to_vector(matrix, onb):
+def hermitian_to_vector(matrix, basis):
     """
     Returns a the vector representing the 'matrix' w.r.t. the given orthonormal basis 'onb'.
     """
-    _assert_onb(onb)
-    vec = tuple(frobenius_product(matrix, b) for b in onb)
+    _assert_onb(basis)
+    vec = tuple(frobenius_product(matrix, b) for b in basis)
     # check consistency
-    assert sp.Eq(sum((v * b for v, b in zip(vec, onb)), sp.zeros(*matrix.shape)), matrix)
+    assert sp.Eq(sum((v * b for v, b in zip(vec, basis)), sp.zeros(*matrix.shape)), matrix)
     return vec
 
 if __name__ == '__main__':
