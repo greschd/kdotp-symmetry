@@ -47,7 +47,7 @@ def create_onb_hermitian(dim):
     return basis
 
 def _assert_onb(basis):
-    """Check ONB properties for a given basis."""
+    """Check ONB properties for a given ``basis``."""
     for i, bi in enumerate(basis):
         for j, bj in enumerate(basis):
             if i == j:
@@ -57,7 +57,7 @@ def _assert_onb(basis):
 
 def hermitian_to_vector(matrix, basis):
     """
-    Returns a the vector representing the 'matrix' w.r.t. the given orthonormal basis 'onb'.
+    Returns a the vector representing the ``matrix`` w.r.t. the given *orthonormal* ``basis``.
     """
     _assert_onb(basis)
     vec = tuple(frobenius_product(matrix, b) for b in basis)
