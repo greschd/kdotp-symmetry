@@ -11,7 +11,7 @@ def frobenius_product(A, B):
     """
     Returns the Frobenius scalar product <A, B> = Tr(A^\dagger B) for two matrices.
     """
-    return (A.conjugate().transpose() @ B).trace()
+    return (A.conjugate().transpose() @ B).trace().simplify()
 
 def create_onb_hermitian(dim):
     """
@@ -41,13 +41,13 @@ def create_onb_hermitian(dim):
             basis.append(mat)
     
     # check ONB property
+    assert len(basis) == dim**2
     _assert_onb(basis)
     
     return basis
     
 def _assert_onb(basis):
     """Check ONB properties for a given basis."""
-    assert len(basis) == dim**2
     for i, bi in enumerate(basis):
         for j, bj in enumerate(basis):
             if i == j:
@@ -61,9 +61,11 @@ def hermitian_to_vector(matrix, onb):
     Returns a the vector representing the 'matrix' w.r.t. the given orthonormal basis 'onb'.
     """
     _assert_onb(onb)
-    vec = tuple(frobenius_product(matrix, bi) for bi in onb) 
-    
+    vec = tuple(frobenius_product(matrix, b) for b in onb)
+    # check consistency
+    assert sp.Eq(sum((v * b for v, b in zip(vec, onb)), sp.zeros(*matrix.shape)), matrix)
+    return vec
 
 if __name__ == '__main__':
-    print(create_onb_hermitian(3))
-    print(
+    sp.init_printing()
+    print(hermitian_to_vector(sp.Matrix([[0, 1 + 1j], [1 - 1j, 0]]), create_onb_hermitian(2)))
