@@ -8,7 +8,7 @@
 import sympy as sp
 
 def frobenius_product(A, B):
-    """
+    r"""
     Returns the Frobenius scalar product <A, B> = Tr(A^\dagger B) for two matrices.
     """
     return (A.conjugate().transpose() @ B).trace().simplify()
@@ -23,7 +23,7 @@ def create_onb_hermitian(dim):
         mat = sp.zeros(dim)
         mat[i, i] = 1
         basis.append(mat)
-    
+
     # off-diagonal entries
     x = 1 / sp.sqrt(2)
     for i in range(dim):
@@ -33,19 +33,19 @@ def create_onb_hermitian(dim):
             mat[i, j] = x
             mat[j, i] = x
             basis.append(mat)
-            
+
             # imag
             mat = sp.zeros(dim)
             mat[i, j] = 1j * x
             mat[j, i] = -1j * x
             basis.append(mat)
-    
+
     # check ONB property
     assert len(basis) == dim**2
     _assert_onb(basis)
-    
+
     return basis
-    
+
 def _assert_onb(basis):
     """Check ONB properties for a given basis."""
     for i, bi in enumerate(basis):
@@ -54,8 +54,7 @@ def _assert_onb(basis):
                 assert frobenius_product(bi, bj) == 1
             else:
                 assert frobenius_product(bi, bj) == 0
-    
-    
+
 def hermitian_to_vector(matrix, onb):
     """
     Returns a the vector representing the 'matrix' w.r.t. the given orthonormal basis 'onb'.
