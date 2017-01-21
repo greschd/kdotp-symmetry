@@ -36,11 +36,14 @@ def func_to_vector(
     res = sp.linsolve((sp.Matrix(A), sp.Matrix(b)), sp.symbols('a b c'))
     if len(res) != 1:
         raise ValueError('No or multiple results found: {}'.format(res))
-    return next(iter(res))
+    vec = next(iter(res))
+    # check consistency
+    assert sp.Eq(sum(v * b for v, b in zip(vec, basis)), expr).simplify()
+    return vec
 
 if __name__ == '__main__':
     kx, ky, kz = sp.symbols('kx, ky, kz')
 
     expr = kx * (4 + ky) + 2 * ky + 3 # [3, 4, 2, 1]
     basis = [sp.Integer(1), kx, ky, kx * ky]
-    print(to_vector(expr, basis))
+    print(func_to_vector(expr, basis))

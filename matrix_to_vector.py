@@ -1,5 +1,5 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#!/usr/bin/env python
 #
 # Author:  Dominik Gresch <greschd@gmx.ch>
 # Date:    21.01.2017 09:41:11 CET
@@ -9,13 +9,13 @@ import sympy as sp
 
 def frobenius_product(A, B):
     """
-    Returns the Frobenius scalar product <A, B> = Tr(A^\dagger B) for two matrices
+    Returns the Frobenius scalar product <A, B> = Tr(A^\dagger B) for two matrices.
     """
     return (A.conjugate().transpose() @ B).trace()
 
 def create_onb_hermitian(dim):
     """
-    Returns an orthonormal basis of the hermitian matrices of size 'dim'
+    Returns an orthonormal basis (w.r.t. the Frobenius scalar product) of the hermitian matrices of size 'dim'.
     """
     basis = []
     # diagonal entries
@@ -41,6 +41,12 @@ def create_onb_hermitian(dim):
             basis.append(mat)
     
     # check ONB property
+    _assert_onb(basis)
+    
+    return basis
+    
+def _assert_onb(basis):
+    """Check ONB properties for a given basis."""
     assert len(basis) == dim**2
     for i, bi in enumerate(basis):
         for j, bj in enumerate(basis):
@@ -49,7 +55,15 @@ def create_onb_hermitian(dim):
             else:
                 assert frobenius_product(bi, bj) == 0
     
-    return basis
+    
+def hermitian_to_vector(matrix, onb):
+    """
+    Returns a the vector representing the 'matrix' w.r.t. the given orthonormal basis 'onb'.
+    """
+    _assert_onb(onb)
+    vec = tuple(frobenius_product(matrix, bi) for bi in onb) 
+    
 
 if __name__ == '__main__':
     print(create_onb_hermitian(3))
+    print(
