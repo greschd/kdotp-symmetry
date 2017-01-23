@@ -10,10 +10,6 @@ import sympy as sp
 
 from kdotp_symmetry.hermitian_utils import frobenius_product, create_onb_hermitian, hermitian_to_vector
 
-#~ if __name__ == '__main__':
-    #~ sp.init_printing()
-    #~ print(hermitian_to_vector(sp.Matrix([[0, 1 + 1j], [1 - 1j, 0]]), create_onb_hermitian(2)))
-
 sigma0 = sp.Matrix([[1, 0], [0, 1]])
 sigmax = sp.Matrix([[0, 1], [1, 0]])
 sigmay = sp.Matrix([[0, -1j], [1j, 0]])
