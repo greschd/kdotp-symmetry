@@ -13,6 +13,8 @@ from kdotp_symmetry.matrix_representation import matrix_representation
 from kdotp_symmetry.constants import K_VEC
 from kdotp_symmetry.func_utils import func_to_vector, create_monomial_basis, operator_form
 
+from kdotp_symmetry.hermitian_utils import hermitian_to_vector, create_hermitian_onb
+
 @pytest.mark.parametrize('operator,basis,to_vector_fct,result', [
     (
         operator_form([[0, 1, 0], [1, 0, 0], [0, 0, -1]]),
@@ -41,6 +43,9 @@ from kdotp_symmetry.func_utils import func_to_vector, create_monomial_basis, ope
             [0, 1, 0, 0],
             [0, 0, 0, -1]
         ])
+    ),
+    (
+    
     )
 ])
 def test_matrix_representation(operator, basis, to_vector_fct, result):

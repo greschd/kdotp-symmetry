@@ -13,7 +13,7 @@ def frobenius_product(A, B):
     """
     return (A.conjugate().transpose() @ B).trace().simplify()
 
-def create_onb_hermitian(dim):
+def create_hermitian_onb(dim):
     """
     Returns an orthonormal basis (w.r.t. the Frobenius scalar product) of the hermitian matrices of size 'dim'.
     """
@@ -64,3 +64,11 @@ def hermitian_to_vector(matrix, basis):
     # check consistency
     assert sp.Eq(sum((v * b for v, b in zip(vec, basis)), sp.zeros(*matrix.shape)), matrix)
     return vec
+
+def operator_form(matrix_representation, complex_conjugate=False):
+    def operator(matrix):
+        B = matrix @ matrix_representation.conjugate().transpose()
+        if complex_conjugate:
+            B = B.conjugate()
+        return matrix_representation @ B
+    return operator
