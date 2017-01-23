@@ -12,15 +12,16 @@ from itertools import combinations_with_replacement
 
 import sympy as sp
 
+from .constants import K_VEC
+
 def func_to_vector(
         expr,
         basis,
         *,
-        coordinates=sp.symbols('kx, ky, kz'),
         random_fct=lambda: random.randint(-100, 100)
     ):
     dim = len(basis)
-    # create random values for the coordinates and evaluate 
+    # create random values for the coordinates and evaluate
     # both the basis functions and the expression to generate
     # the linear equation to be solved
     A = []
@@ -28,7 +29,7 @@ def func_to_vector(
     for _ in range(2 * dim):
         if sp.Matrix(A).rank() >= len(basis):
             break
-        vals = [(k, random_fct()) for k in coordinates]
+        vals = [(k, random_fct()) for k in K_VEC]
         A.append([b.subs(vals) for b in basis])
         b.append(expr.subs(vals))
     else:
@@ -44,21 +45,26 @@ def func_to_vector(
     assert sp.Eq(sum(v * b for v, b in zip(vec, basis)), expr).simplify()
     return vec
 
-def create_monomial_basis(power, symbols=sp.symbols('kx, ky, kz')):
+def create_monomial_basis(power):
+    """Returns the monomial basis of (kx, ky, kz), up to the chosen ``power``."""
     if power < 0:
         raise ValueError('The power must be a non-negative integer.')
     basis = []
     for p in range(power + 1):
-        monomial_tuples = combinations_with_replacement(symbols, p)
+        monomial_tuples = combinations_with_replacement(K_VEC, p)
         basis.extend(
             reduce(operator.mul, m, sp.Integer(1))
             for m in monomial_tuples
         )
     return basis
-
-if __name__ == '__main__':
-    kx, ky, kz = sp.symbols('kx, ky, kz')
-    expr = kx * (4 + ky) + 2 * ky + 3 # [3, 4, 2, 1]
-    basis = [sp.Integer(1), kx, ky, kx * ky]
-    print(func_to_vector(expr, basis))
-    print(create_monomial_basis(3))
+    
+def operator_form(k_matrix_form):
+    """Returns a function that operates on expression, corresponding to the given ``k_matrix_form`` which operates on a vector in k-space."""
+    substitution = zip(
+        K_VEC, 
+        list(
+            sp.Matrix(k_matrix_form) @ sp.Matrix(K_VEC)
+        ))
+    def operator(expr):
+        return expr.subs(substitution, simultaneous=True)
+    return operator
