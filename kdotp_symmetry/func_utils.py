@@ -60,11 +60,11 @@ def create_monomial_basis(power):
     
 def operator_form(k_matrix_form):
     """Returns a function that operates on expression, corresponding to the given ``k_matrix_form`` which operates on a vector in k-space."""
-    substitution = zip(
+    substitution = list(zip(
         K_VEC, 
         list(
             sp.Matrix(k_matrix_form) @ sp.Matrix(K_VEC)
-        ))
+        )))
     def operator(expr):
         return expr.subs(substitution, simultaneous=True)
     return operator

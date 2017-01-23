@@ -8,7 +8,8 @@
 import sympy as sp
 
 def matrix_representation(operator, basis, to_vector_fct):
+    print([operator(b) for b in basis])
     return sp.Matrix([
-        to_vector_func(operator(b), basis=basis))
+        to_vector_fct(operator(b), basis=basis)
         for b in basis
     ]).transpose()

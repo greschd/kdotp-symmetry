@@ -54,3 +54,20 @@ def test_monomial_basis(dim, basis):
 ])
 def test_operator_form(matrix_form, expr1, expr2):
     assert sp.simplify(sp.Eq(operator_form(matrix_form)(expr1), expr2))
+
+@pytest.mark.parametrize('matrix_form,expr1,expr2', [
+    (
+        [[0, 1, 0], [1, 0, 0], [0, 0, -1]],
+        2 + kx**2 + kx * ky + kx * kz,
+        2 + ky**2 + kx * ky - ky * kz
+    ),
+    (
+        [[0, 1, 0], [1, 0, 0], [0, 0, -1]],
+        -1 + kx**2 * ky + kx - kx * kz**2,
+        -1 + ky**2 * kx + ky - ky * kz**2
+    )
+])
+def test_operator_form_double_eval(matrix_form, expr1, expr2):
+    op = operator_form(matrix_form)
+    assert sp.simplify(sp.Eq(op(expr1), expr2))
+    assert sp.simplify(sp.Eq(op(expr1), expr2))
