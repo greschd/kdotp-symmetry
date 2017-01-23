@@ -13,7 +13,7 @@ def frobenius_product(A, B):
     """
     return (A.conjugate().transpose() @ B).trace().simplify()
 
-def create_hermitian_onb(dim):
+def hermitian_basis(dim):
     """
     Returns an orthonormal basis (w.r.t. the Frobenius scalar product) of the hermitian matrices of size 'dim'.
     """

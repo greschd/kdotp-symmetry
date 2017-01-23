@@ -8,7 +8,7 @@
 import pytest
 import sympy as sp
 
-from kdotp_symmetry.expr_utils import expr_to_vector, create_monomial_basis, operator_form
+from kdotp_symmetry.expr_utils import expr_to_vector, monomial_basis, matrix_to_expr_operator
 
 kx, ky, kz = sp.symbols('kx, ky, kz')
 
@@ -38,7 +38,7 @@ def test_expr_to_vector(expr, vector, basis):
     (2, [sp.Integer(1), kx, ky, kz, kx**2, kx * ky, kx * kz, ky**2, ky * kz, kz**2])
 ])
 def test_monomial_basis(dim, basis):
-    assert create_monomial_basis(dim) == basis
+    assert monomial_basis(dim) == basis
 
 @pytest.mark.parametrize('matrix_form,expr1,expr2', [
     (
@@ -52,8 +52,8 @@ def test_monomial_basis(dim, basis):
         -1 + ky**2 * kx + ky - ky * kz**2
     )
 ])
-def test_operator_form(matrix_form, expr1, expr2):
-    assert sp.simplify(sp.Eq(operator_form(matrix_form)(expr1), expr2))
+def test_matrix_to_expr_operator(matrix_form, expr1, expr2):
+    assert sp.simplify(sp.Eq(matrix_to_expr_operator(matrix_form)(expr1), expr2))
 
 @pytest.mark.parametrize('matrix_form,expr1,expr2', [
     (
@@ -67,7 +67,7 @@ def test_operator_form(matrix_form, expr1, expr2):
         -1 + ky**2 * kx + ky - ky * kz**2
     )
 ])
-def test_operator_form_double_eval(matrix_form, expr1, expr2):
-    op = operator_form(matrix_form)
+def test_matrix_to_expr_operator_double_eval(matrix_form, expr1, expr2):
+    op = matrix_to_expr_operator(matrix_form)
     assert sp.simplify(sp.Eq(op(expr1), expr2))
     assert sp.simplify(sp.Eq(op(expr1), expr2))

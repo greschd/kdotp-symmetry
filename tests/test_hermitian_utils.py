@@ -8,7 +8,7 @@
 import pytest
 import sympy as sp
 
-from kdotp_symmetry.hermitian_utils import frobenius_product, create_hermitian_onb, hermitian_to_vector
+from kdotp_symmetry.hermitian_utils import frobenius_product, hermitian_basis, hermitian_to_vector
 
 sigma0 = sp.Matrix([[1, 0], [0, 1]])
 sigmax = sp.Matrix([[0, 1], [1, 0]])
@@ -46,23 +46,23 @@ def test_frobenius_product(A, B):
         1 / sp.sqrt(2) * sp.Matrix([[0, 0, 0], [0, 0, -1j], [0, 1j, 0]]),
     ])
 ])
-def test_create_hermitian_onb(dim, result):
-    for b, r in zip(create_hermitian_onb(dim), result):
+def test_hermitian_basis(dim, result):
+    for b, r in zip(hermitian_basis(dim), result):
         print(b)
         print(r)
         assert b == r
-    assert create_hermitian_onb(dim) == result
+    assert hermitian_basis(dim) == result
 
 @pytest.mark.parametrize('mat,vec,basis', [
     (
         sp.Matrix([[0, 1 + 1j], [1 - 1j, 0]]), 
         (0, 0, sp.sqrt(2), -sp.sqrt(2)), 
-        create_hermitian_onb(2)
+        hermitian_basis(2)
     ),
     (
         sp.Matrix([[2, sp.sqrt(2) + 1j], [sp.sqrt(2) - 1j, -3]]), 
         (2, -3, 2, -sp.sqrt(2)), 
-        create_hermitian_onb(2)
+        hermitian_basis(2)
     )
 ])
 def test_hermitian_to_vector(mat, vec, basis):

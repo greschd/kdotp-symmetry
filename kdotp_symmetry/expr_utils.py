@@ -45,7 +45,7 @@ def expr_to_vector(
     assert sp.simplify(sp.Eq(sum(v * b for v, b in zip(vec, basis)), expr))
     return vec
 
-def create_monomial_basis(power):
+def monomial_basis(power):
     """Returns the monomial basis of (kx, ky, kz), up to the chosen ``power``."""
     if power < 0:
         raise ValueError('The power must be a non-negative integer.')
@@ -58,7 +58,7 @@ def create_monomial_basis(power):
         )
     return basis
     
-def operator_form(k_matrix_form):
+def matrix_to_expr_operator(k_matrix_form):
     """Returns a function that operates on expression, corresponding to the given ``k_matrix_form`` which operates on a vector in k-space."""
     substitution = list(zip(
         K_VEC, 

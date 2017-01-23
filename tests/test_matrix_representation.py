@@ -11,14 +11,14 @@ import sympy as sp
 from kdotp_symmetry.matrix_representation import matrix_representation
 
 from kdotp_symmetry.constants import K_VEC
-from kdotp_symmetry.expr_utils import expr_to_vector, create_monomial_basis, operator_form
+from kdotp_symmetry.expr_utils import expr_to_vector, monomial_basis, matrix_to_expr_operator
 
-from kdotp_symmetry.hermitian_utils import hermitian_to_vector, create_hermitian_onb
+from kdotp_symmetry.hermitian_utils import hermitian_to_vector, hermitian_basis
 
 @pytest.mark.parametrize('operator,basis,to_vector_fct,result', [
     (
-        operator_form([[0, 1, 0], [1, 0, 0], [0, 0, -1]]),
-        create_monomial_basis(2),
+        matrix_to_expr_operator([[0, 1, 0], [1, 0, 0], [0, 0, -1]]),
+        monomial_basis(2),
         expr_to_vector,
         sp.Matrix([
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -34,8 +34,8 @@ from kdotp_symmetry.hermitian_utils import hermitian_to_vector, create_hermitian
         ])
     ),
     (
-        operator_form([[0, 1, 0], [1, 0, 0], [0, 0, -1]]),
-        create_monomial_basis(1),
+        matrix_to_expr_operator([[0, 1, 0], [1, 0, 0], [0, 0, -1]]),
+        monomial_basis(1),
         expr_to_vector,
         sp.Matrix([
             [1, 0, 0, 0],
