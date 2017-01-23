@@ -30,11 +30,19 @@ from kdotp_symmetry.func_utils import func_to_vector, create_monomial_basis, ope
             [0, 0, 0, 0, 0, 0, -1, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         ])
+    ),
+    (
+        operator_form([[0, 1, 0], [1, 0, 0], [0, 0, -1]]),
+        create_monomial_basis(1),
+        func_to_vector,
+        sp.Matrix([
+            [1, 0, 0, 0],
+            [0, 0, 1, 0],
+            [0, 1, 0, 0],
+            [0, 0, 0, -1]
+        ])
     )
 ])
 def test_matrix_representation(operator, basis, to_vector_fct, result):
     kx, ky, kz = K_VEC
-    #~ print([operator(b) for b in basis])
-    print(operator(kx * kz))
-    print(matrix_representation(operator, basis, to_vector_fct))
     assert matrix_representation(operator, basis, to_vector_fct) == result
