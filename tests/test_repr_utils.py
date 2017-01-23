@@ -8,7 +8,7 @@
 import pytest
 import sympy as sp
 
-from kdotp_symmetry.hermitian_utils import frobenius_product, hermitian_basis, hermitian_to_vector
+from kdotp_symmetry.repr_utils import frobenius_product, hermitian_basis, hermitian_to_vector
 
 sigma0 = sp.Matrix([[1, 0], [0, 1]])
 sigmax = sp.Matrix([[0, 1], [1, 0]])

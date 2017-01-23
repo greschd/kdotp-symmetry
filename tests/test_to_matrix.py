@@ -3,17 +3,17 @@
 #
 # Author:  Dominik Gresch <greschd@gmx.ch>
 # Date:    23.01.2017 14:41:35 CET
-# File:    test_matrix_representation.py
+# File:    test_to_matrix.py
 
 import pytest
 import sympy as sp
 
-from kdotp_symmetry.matrix_representation import matrix_representation
+from kdotp_symmetry.to_matrix import to_matrix
 
 from kdotp_symmetry.constants import K_VEC
 from kdotp_symmetry.expr_utils import expr_to_vector, monomial_basis, matrix_to_expr_operator
 
-from kdotp_symmetry.hermitian_utils import hermitian_to_vector, hermitian_basis
+from kdotp_symmetry.repr_utils import hermitian_to_vector, hermitian_basis
 
 @pytest.mark.parametrize('operator,basis,to_vector_fct,result', [
     (
@@ -48,6 +48,6 @@ from kdotp_symmetry.hermitian_utils import hermitian_to_vector, hermitian_basis
     
     )
 ])
-def test_matrix_representation(operator, basis, to_vector_fct, result):
+def test_to_matrix(operator, basis, to_vector_fct, result):
     kx, ky, kz = K_VEC
-    assert matrix_representation(operator, basis, to_vector_fct) == result
+    assert to_matrix(operator, basis, to_vector_fct) == result

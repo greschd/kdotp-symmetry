@@ -65,7 +65,7 @@ def hermitian_to_vector(matrix, basis):
     assert sp.Eq(sum((v * b for v, b in zip(vec, basis)), sp.zeros(*matrix.shape)), matrix)
     return vec
 
-def operator_form(matrix_representation, complex_conjugate=False):
+def repr_to_matrix_operator(matrix_representation, complex_conjugate=False):
     def operator(matrix):
         B = matrix @ matrix_representation.conjugate().transpose()
         if complex_conjugate:
