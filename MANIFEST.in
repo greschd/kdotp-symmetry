@@ -1,0 +1,15 @@
+# examples are provided via GitHub
+prune examples
+
+# tests are used for development only
+prune tests
+
+# Documentation is provided online
+prune doc
+
+# installation related
+exclude MANIFEST.in
+
+# License & README
+include README.md
+include LICENSE.txt
