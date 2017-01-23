@@ -6,6 +6,9 @@
 # File:    func_to_vector.py
 
 import random
+import operator
+from functools import reduce
+from itertools import combinations_with_replacement
 
 import sympy as sp
 
@@ -41,9 +44,21 @@ def func_to_vector(
     assert sp.Eq(sum(v * b for v, b in zip(vec, basis)), expr).simplify()
     return vec
 
+def create_monomial_basis(power, symbols=sp.symbols('kx, ky, kz')):
+    if power < 0:
+        raise ValueError('The power must be a non-negative integer.')
+    basis = []
+    for p in range(power + 1):
+        monomial_tuples = combinations_with_replacement(symbols, p)
+        basis.extend(
+            reduce(operator.mul, m, sp.Integer(1))
+            for m in monomial_tuples
+        )
+    return basis
+
 if __name__ == '__main__':
     kx, ky, kz = sp.symbols('kx, ky, kz')
-
     expr = kx * (4 + ky) + 2 * ky + 3 # [3, 4, 2, 1]
     basis = [sp.Integer(1), kx, ky, kx * ky]
     print(func_to_vector(expr, basis))
+    print(create_monomial_basis(3))
