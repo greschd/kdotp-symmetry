@@ -36,8 +36,8 @@ def create_onb_hermitian(dim):
 
             # imag
             mat = sp.zeros(dim)
-            mat[i, j] = 1j * x
-            mat[j, i] = -1j * x
+            mat[i, j] = -1j * x
+            mat[j, i] = 1j * x
             basis.append(mat)
 
     # check ONB property
@@ -64,7 +64,3 @@ def hermitian_to_vector(matrix, basis):
     # check consistency
     assert sp.Eq(sum((v * b for v, b in zip(vec, basis)), sp.zeros(*matrix.shape)), matrix)
     return vec
-
-if __name__ == '__main__':
-    sp.init_printing()
-    print(hermitian_to_vector(sp.Matrix([[0, 1 + 1j], [1 - 1j, 0]]), create_onb_hermitian(2)))
