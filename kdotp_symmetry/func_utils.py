@@ -64,7 +64,8 @@ def operator_form(k_matrix_form):
         K_VEC, 
         list(
             sp.Matrix(k_matrix_form) @ sp.Matrix(K_VEC)
-        )))
+        )
+    ))
     def operator(expr):
         return expr.subs(substitution, simultaneous=True)
     return operator
