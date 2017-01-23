@@ -54,6 +54,28 @@ from kdotp_symmetry.repr_utils import hermitian_to_vector, hermitian_basis, repr
             [0, 0, 1, 0],
             [0, 0, 0, -1],
         ])
+    ),
+    (
+        repr_to_matrix_operator(sp.Matrix([[0, 1], [1, 0]]), complex_conjugate=True),
+        hermitian_basis(2),
+        hermitian_to_vector,
+        sp.Matrix([
+            [0, 1, 0, 0],
+            [1, 0, 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, 1],
+        ])
+    ),
+    (
+        repr_to_matrix_operator(sp.eye(2), complex_conjugate=True),
+        hermitian_basis(2),
+        hermitian_to_vector,
+        sp.Matrix([
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 1, 0],
+            [0, 0, 0, -1],
+        ])
     )
 ])
 def test_to_matrix(operator, basis, to_vector_fct, result):
