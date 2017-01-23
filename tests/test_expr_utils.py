@@ -3,12 +3,12 @@
 #
 # Author:  Dominik Gresch <greschd@gmx.ch>
 # Date:    23.01.2017 10:55:46 CET
-# File:    test_func_utils.py
+# File:    test_expr_utils.py
 
 import pytest
 import sympy as sp
 
-from kdotp_symmetry.func_utils import func_to_vector, create_monomial_basis, operator_form
+from kdotp_symmetry.expr_utils import expr_to_vector, create_monomial_basis, operator_form
 
 kx, ky, kz = sp.symbols('kx, ky, kz')
 
@@ -29,8 +29,8 @@ kx, ky, kz = sp.symbols('kx, ky, kz')
         [sp.Integer(1), kx, ky, kz]
     )
 ])
-def test_func_to_vector(expr, vector, basis):
-    assert func_to_vector(expr, basis=basis) == vector
+def test_expr_to_vector(expr, vector, basis):
+    assert expr_to_vector(expr, basis=basis) == vector
 
 @pytest.mark.parametrize('dim,basis', [
     (0, [sp.Integer(1)]),

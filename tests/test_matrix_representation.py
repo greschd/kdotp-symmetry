@@ -11,7 +11,7 @@ import sympy as sp
 from kdotp_symmetry.matrix_representation import matrix_representation
 
 from kdotp_symmetry.constants import K_VEC
-from kdotp_symmetry.func_utils import func_to_vector, create_monomial_basis, operator_form
+from kdotp_symmetry.expr_utils import expr_to_vector, create_monomial_basis, operator_form
 
 from kdotp_symmetry.hermitian_utils import hermitian_to_vector, create_hermitian_onb
 
@@ -19,7 +19,7 @@ from kdotp_symmetry.hermitian_utils import hermitian_to_vector, create_hermitian
     (
         operator_form([[0, 1, 0], [1, 0, 0], [0, 0, -1]]),
         create_monomial_basis(2),
-        func_to_vector,
+        expr_to_vector,
         sp.Matrix([
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
@@ -36,15 +36,15 @@ from kdotp_symmetry.hermitian_utils import hermitian_to_vector, create_hermitian
     (
         operator_form([[0, 1, 0], [1, 0, 0], [0, 0, -1]]),
         create_monomial_basis(1),
-        func_to_vector,
+        expr_to_vector,
         sp.Matrix([
             [1, 0, 0, 0],
             [0, 0, 1, 0],
             [0, 1, 0, 0],
             [0, 0, 0, -1]
         ])
-    ),
-    (
+    #~ ),
+    #~ (
     
     )
 ])

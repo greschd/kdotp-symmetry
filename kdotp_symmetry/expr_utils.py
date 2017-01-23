@@ -3,7 +3,7 @@
 #
 # Author:  Dominik Gresch <greschd@gmx.ch>
 # Date:    21.01.2017 09:41:18 CET
-# File:    func_to_vector.py
+# File:    expr_to_vector.py
 
 import random
 import operator
@@ -14,7 +14,7 @@ import sympy as sp
 
 from .constants import K_VEC
 
-def func_to_vector(
+def expr_to_vector(
         expr,
         basis,
         *,
