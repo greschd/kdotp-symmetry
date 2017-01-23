@@ -17,12 +17,12 @@ if sys.version_info < (3, 5):
 
 readme = """A tool for calculating the general form of a k.p Hamiltonian under given symmetry constraints."""
 
-with open('./tbmodels/_version.py', 'r') as f:
+with open('./kdotp_symmetry/_version.py', 'r') as f:
     match_expr = "__version__[^'" + '"]+([' + "'" + r'"])([^\1]+)\1'
     version = re.search(match_expr, f.read()).group(2)
 
 setup(
-    name='tbmodels',
+    name='kdotp-symmetry',
     version=version,
     author='Dominik Gresch',
     author_email='greschd@gmx.ch',
