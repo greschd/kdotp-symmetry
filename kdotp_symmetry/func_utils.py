@@ -42,7 +42,7 @@ def func_to_vector(
         raise ValueError('No or multiple results found: {}'.format(res))
     vec = next(iter(res))
     # check consistency
-    assert sp.Eq(sum(v * b for v, b in zip(vec, basis)), expr).simplify()
+    assert sp.simplify(sp.Eq(sum(v * b for v, b in zip(vec, basis)), expr))
     return vec
 
 def create_monomial_basis(power):
