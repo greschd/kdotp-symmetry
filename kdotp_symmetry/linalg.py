@@ -50,5 +50,3 @@ def intersection_basis(*bases):
     
 if __name__ == '__main__':
     print(intersection_basis([[1, 1, 0], [0, 1, 0]], [[0, 1, 1], [0, 0, 1]], [[0, 2, 1]], []))
-    print(zassenhaus([], [[1, 2, 3]]))
-    print(zassenhaus([[1, 2, 1, 0], [0, -1, 0, 1]], [[1, 1, 0, 1], [0, 0, 1, 0]]))
