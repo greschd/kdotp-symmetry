@@ -21,6 +21,10 @@ from kdotp_symmetry.linalg import zassenhaus, intersection_basis
         ([[1, 1, 0], [1, 1, 0]], []),
         ([[1, 1, 0]], [])
     ),
+    (
+        ([[1, 2, 1, 0], [0, -1, 0, 1]], [[1, 1, 0, 1], [0, 0, 1, 0]]),
+        ([[1, 0, 0, 2], [0, 1, 0, -1], [0, 0, 1, 0]], [[1, 1, 1, 1]])
+    ),
 ])
 def test_zassenhaus(input_bases, output_bases):
     assert zassenhaus(*input_bases) == output_bases
