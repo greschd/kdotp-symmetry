@@ -18,23 +18,26 @@ def zassenhaus(basis_a, basis_b):
     """
     # handle the case where one of the bases is empty
     if len(basis_a) == 0 or len(basis_b) == 0:
-        return ZassenhausResult(sum=basis_a + basis_b, intersection=[])
+        mat, pivot = sp.Matrix(basis_a).rref()
+        plus_basis = mat[:len(pivot),:].tolist()
+        return ZassenhausResult(sum=plus_basis, intersection=[])
     
-    # Set up the Zassenhaus matrix from the given bases.
-    A = sp.Matrix(basis_a)
-    B = sp.Matrix(basis_b)
-    dim = A.shape[1]
-    if B.shape[1] != dim:
-        raise ValueError('Inconsistent dimensions of the two bases given.')
-    zassenhaus_mat = A.row_join(A).col_join(B.row_join(sp.zeros(*B.shape)))
-    mat, pivot = zassenhaus_mat.rref()
-    
-    # idx is the row index of the first row belonging to the intersection basis
-    idx = np.searchsorted(pivot, dim)
-    plus_basis = mat[:idx, :dim].tolist()
-    # The length of the pivot table is used to get rid of all-zero rows
-    int_basis = mat[idx:len(pivot), dim:].tolist()
-    return ZassenhausResult(sum=plus_basis, intersection=int_basis)
+    else:
+        # Set up the Zassenhaus matrix from the given bases.
+        A = sp.Matrix(basis_a)
+        B = sp.Matrix(basis_b)
+        dim = A.shape[1]
+        if B.shape[1] != dim:
+            raise ValueError('Inconsistent dimensions of the two bases given.')
+        zassenhaus_mat = A.row_join(A).col_join(B.row_join(sp.zeros(*B.shape)))
+        mat, pivot = zassenhaus_mat.rref()
+        
+        # idx is the row index of the first row belonging to the intersection basis
+        idx = np.searchsorted(pivot, dim)
+        plus_basis = mat[:idx, :dim].tolist()
+        # The length of the pivot table is used to get rid of all-zero rows
+        int_basis = mat[idx:len(pivot), dim:].tolist()
+        return ZassenhausResult(sum=plus_basis, intersection=int_basis)
     
 def intersection_basis(*bases):
     bases_sorted = sorted(bases, key=lambda x: len(x))
