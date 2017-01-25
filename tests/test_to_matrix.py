@@ -10,8 +10,7 @@ import sympy as sp
 
 from kdotp_symmetry.to_matrix import to_matrix
 
-from kdotp_symmetry.constants import K_VEC
-from kdotp_symmetry.expr_utils import expr_to_vector, monomial_basis, matrix_to_expr_operator
+from kdotp_symmetry.expr_utils import K_VEC, expr_to_vector, monomial_basis, matrix_to_expr_operator
 
 from kdotp_symmetry.repr_utils import hermitian_to_vector, hermitian_basis, repr_to_matrix_operator
 

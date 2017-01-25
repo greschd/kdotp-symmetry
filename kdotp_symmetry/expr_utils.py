@@ -12,7 +12,7 @@ from itertools import combinations_with_replacement
 
 import sympy as sp
 
-from .constants import K_VEC
+K_VEC = sp.symbols('kx, ky, kz')
 
 def expr_to_vector(
         expr,
