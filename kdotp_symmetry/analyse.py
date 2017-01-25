@@ -21,6 +21,10 @@ def symmetric_hamiltonian(*symmetry_operations, power):
     expr_dim = len(expr_basis)
     repr_dim = len(repr_basis)
     full_dim = expr_dim * repr_dim
+    full_basis = [
+        sp.Matrix(x) for x in 
+        np.outer(expr_basis, repr_basis).reshape(full_dim, repr_dim, repr_dim).tolist()
+    ]
     
     invariant_bases = []
     for op in symmetry_operations:
@@ -46,8 +50,11 @@ def symmetric_hamiltonian(*symmetry_operations, power):
             ).tolist()
         )
     
-    final_basis = intersection_basis(*invariant_bases)
-    print(final_basis)
-    
-def get_invariant_basis(symmetry_op):
+    basis_vectors = intersection_basis(*invariant_bases)
+    basis_vectors_expanded = []
+    for vec in basis_vectors:
+        basis_vectors_expanded.append(
+            sum((v * b for v, b in zip(vec, full_basis)), sp.zeros(repr_dim))
+        )
+    return basis_vectors, full_basis, basis_vectors_expanded
 
