@@ -11,7 +11,7 @@ def frobenius_product(A, B):
     r"""
     Returns the Frobenius scalar product <A, B> = Tr(A^\dagger B) for two matrices.
     """
-    return (A.conjugate().transpose() @ B).trace().simplify()
+    return (A.H @ B).trace().simplify()
 
 def hermitian_basis(dim):
     """
@@ -67,7 +67,7 @@ def hermitian_to_vector(matrix, basis):
 
 def repr_to_matrix_operator(matrix_representation, complex_conjugate=False):
     def operator(matrix):
-        B = matrix @ matrix_representation.conjugate().transpose()
+        B = matrix @ matrix_representation.H
         if complex_conjugate:
             B = B.conjugate()
         return matrix_representation @ B

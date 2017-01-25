@@ -43,6 +43,7 @@ def intersection_basis(*bases):
     r"""
     Given ``bases`` of different subspaces :math:`U_i \subseteq V`, returns a basis of the intersection :math:`\bigcap_i U_i`. The basis vectors must all have the same length.
     """
+    # sorting is not strictly needed, but usually more efficient
     bases_sorted = sorted(bases, key=len)
     current_basis = bases_sorted.pop(0)
     for basis in bases_sorted:
