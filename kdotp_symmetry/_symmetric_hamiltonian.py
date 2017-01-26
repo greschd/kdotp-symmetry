@@ -68,8 +68,10 @@ def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
                 (full_mat - sp.eye(full_dim)).nullspace()
             ).tolist()
         )
+    print(invariant_bases)
     
     basis_vectors = intersection_basis(*invariant_bases)
+    print(basis_vectors)
     basis_vectors_expanded = []
     for vec in basis_vectors:
         basis_vectors_expanded.append(
