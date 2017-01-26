@@ -23,9 +23,9 @@ def compare_data(request, test_name, scope="session"):
 
         # get rid of json-specific quirks
         # store as string because I cannot add the decoder to the pytest cache
-        data_str = json.dumps(data, default=encode)
-        data = json.loads(data_str, object_hook=decode)
-        val = json.loads(request.config.cache.get(full_name, 'null'), object_hook=decode)
+        data_str = json.dumps(data)
+        data = json.loads(data_str)
+        val = json.loads(request.config.cache.get(full_name, 'null'))
 
         if val is None:
             request.config.cache.set(full_name, data_str)

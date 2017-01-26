@@ -83,9 +83,47 @@ def test_symmetric_hamiltonian(symmetry_operations, expr_basis, repr_basis, resu
         repr_basis=repr_basis
     ) == result
 
-#~ c2 = 
-    #~ res = kp.symmetric_hamiltonian(
-        #~ c2,
-        #~ expr_basis=kp.monomial_basis(*range(2))
-    #~ )
-    #~ print(res)
+@pytest.mark.parametrize('symmetry_operations,expr_basis,repr_basis', [
+    (
+        [kp.SymmetryOperation(
+            kmatrix=[[0, 1, 0], [1, 0, 0], [0, 0, 1]],
+            repr=kp.Representation(
+                matrix=[[0, 1], [1, 0]],
+                complex_conjugate=False
+            )
+        )],
+        kp.monomial_basis(0),
+        'auto'
+    ),
+    (
+        [kp.SymmetryOperation(
+            kmatrix=[[0, 1, 0], [1, 0, 0], [0, 0, 1]],
+            repr=kp.Representation(
+                matrix=[[0, 1], [1, 0]],
+                complex_conjugate=False
+            )
+        )],
+        kp.monomial_basis(1),
+        'auto'
+    ),
+    (
+        [kp.SymmetryOperation(
+            kmatrix=[[0, 1, 0], [1, 0, 0], [0, 0, 1]],
+            repr=kp.Representation(
+                matrix=[[0, 1], [1, 0]],
+                complex_conjugate=False
+            )
+        )],
+        kp.monomial_basis(*range(3)),
+        'auto'
+    ),
+])
+def test_symmetric_hamiltonian_consistency(symmetry_operations, expr_basis, repr_basis, compare_equal):
+    compare_equal(sp.lambdify(
+        (), 
+        kp.symmetric_hamiltonian(
+            *symmetry_operations, 
+            expr_basis=expr_basis, 
+            repr_basis=repr_basis
+        )[0]
+    )())
