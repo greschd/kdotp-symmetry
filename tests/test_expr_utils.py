@@ -38,7 +38,7 @@ def test_expr_to_vector(expr, vector, basis):
     (2, [sp.Integer(1), kx, ky, kz, kx**2, kx * ky, kx * kz, ky**2, ky * kz, kz**2])
 ])
 def test_monomial_basis(dim, basis):
-    assert monomial_basis(dim) == basis
+    assert monomial_basis(*range(dim + 1)) == basis
 
 @pytest.mark.parametrize('matrix_form,expr1,expr2', [
     (

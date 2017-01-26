@@ -15,7 +15,8 @@ if __name__ == '__main__':
             complex_conjugate=False
         )
     )
-    print(kp.symmetric_hamiltonian(
+    res = kp.symmetric_hamiltonian(
         c2,
-        expr_basis=kp.monomial_basis(*range(2))
-    ))
+        expr_basis=kp.monomial_basis(1)
+    )
+    print(res)

@@ -17,7 +17,7 @@ from kdotp_symmetry._repr_utils import hermitian_to_vector, hermitian_basis, rep
 @pytest.mark.parametrize('operator,basis,to_vector_fct,result', [
     (
         matrix_to_expr_operator([[0, 1, 0], [1, 0, 0], [0, 0, -1]]),
-        monomial_basis(2),
+        monomial_basis(*range(3)),
         expr_to_vector,
         sp.Matrix([
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -34,7 +34,7 @@ from kdotp_symmetry._repr_utils import hermitian_to_vector, hermitian_basis, rep
     ),
     (
         matrix_to_expr_operator([[0, 1, 0], [1, 0, 0], [0, 0, -1]]),
-        monomial_basis(1),
+        monomial_basis(*range(2)),
         expr_to_vector,
         sp.Matrix([
             [1, 0, 0, 0],
