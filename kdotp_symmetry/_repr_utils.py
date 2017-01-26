@@ -6,6 +6,7 @@
 # File:    matrix_to_vector.py
 
 import sympy as sp
+from fsc.export import export
 
 def frobenius_product(A, B):
     r"""
@@ -13,6 +14,7 @@ def frobenius_product(A, B):
     """
     return (A.H @ B).trace().simplify()
 
+@export
 def hermitian_basis(dim):
     """
     Returns an orthogonal basis (w.r.t. the Frobenius scalar product) of the hermitian matrices of size 'dim'.

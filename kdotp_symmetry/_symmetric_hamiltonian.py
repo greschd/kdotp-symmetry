@@ -8,8 +8,9 @@
 from collections import namedtuple
 
 import sympy as sp
-import numpy as np
 from sympy.physics.quantum import TensorProduct
+import numpy as np
+from fsc.export import export
 
 from ._expr_utils import expr_to_vector, monomial_basis, matrix_to_expr_operator
 from ._repr_utils import hermitian_to_vector, hermitian_basis, repr_to_matrix_operator
@@ -19,11 +20,14 @@ from ._to_matrix import to_matrix
 Representation = namedtuple('Representation', ['matrix', 'complex_conjugate'])
 SymmetryOperation = namedtuple('SymmetryOperation', ['kmatrix', 'repr'])
 
-def symmetric_hamiltonian(*symmetry_operations, power):
-    expr_basis = monomial_basis(power)
+__all__ = ['Representation', 'SymmetryOperation']
+
+@export
+def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
     expr_dim = len(expr_basis)
     repr_matrix_size = len(symmetry_operations[0].repr.matrix)
-    repr_basis = hermitian_basis(dim=repr_matrix_size)
+    if repr_basis == 'auto':
+        repr_basis = hermitian_basis(repr_matrix_size)
     repr_dim = len(repr_basis)
     full_dim = expr_dim * repr_dim
     full_basis = [

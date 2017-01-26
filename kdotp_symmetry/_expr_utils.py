@@ -11,6 +11,7 @@ from functools import reduce
 from itertools import combinations_with_replacement
 
 import sympy as sp
+from fsc.export import export
 
 K_VEC = sp.symbols('kx, ky, kz')
 
@@ -45,12 +46,13 @@ def expr_to_vector(
     assert sp.simplify(sp.Eq(sum(v * b for v, b in zip(vec, basis)), expr))
     return vec
 
-def monomial_basis(power):
-    """Returns the monomial basis of (kx, ky, kz), up to the chosen ``power``."""
-    if power < 0:
-        raise ValueError('The power must be a non-negative integer.')
+@export
+def monomial_basis(*powers):
+    """Returns the monomial basis of (kx, ky, kz), for the given powers."""
+    if any(p < 0 for p in powers):
+        raise ValueError('Powers must be non-negative integers')
     basis = []
-    for p in range(power + 1):
+    for p in sorted(powers):
         monomial_tuples = combinations_with_replacement(K_VEC, p)
         basis.extend(
             reduce(operator.mul, m, sp.Integer(1))
