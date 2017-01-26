@@ -34,8 +34,14 @@ import kdotp_symmetry
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
-    'sphinx.ext.viewcode'
+    'sphinx.ext.viewcode',
+    'sphinx.ext.intersphinx'
 ]
+
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3', None),
+    'sympy': ('http://docs.sympy.org/latest', None),
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

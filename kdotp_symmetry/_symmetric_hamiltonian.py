@@ -18,7 +18,13 @@ from ._linalg import intersection_basis
 from ._to_matrix import to_matrix
 
 SymmetryOperation = namedtuple('SymmetryOperation', ['kmatrix', 'repr'])
+SymmetryOperation.__doc__ = 'TODO'
+SymmetryOperation.kmatrix.__doc__ = 'TODO'
+SymmetryOperation.repr.__doc__ = 'TODO'
 Representation = namedtuple('Representation', ['matrix', 'complex_conjugate'])
+Representation.__doc__ = 'TODO'
+Representation.matrix.__doc__ = 'TODO'
+Representation.complex_conjugate.__doc__ = 'TODO'
 
 __all__ = ['Representation', 'SymmetryOperation']
 
@@ -26,7 +32,11 @@ __all__ = ['Representation', 'SymmetryOperation']
 def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
     """..."""
     expr_dim = len(expr_basis)
-    repr_matrix_size = len(symmetry_operations[0].repr.matrix)
+    try:
+        repr_matrix_size = symmetry_operations[0].repr.matrix.shape[0]
+    except AttributeError:
+        repr_matrix_size = len(symmetry_operations[0].repr.matrix)
+
     if repr_basis == 'auto':
         repr_basis = hermitian_basis(repr_matrix_size)
     repr_dim = len(repr_basis)

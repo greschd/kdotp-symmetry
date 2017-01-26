@@ -17,7 +17,10 @@ def frobenius_product(A, B):
 @export
 def hermitian_basis(dim):
     """
-    Returns an orthogonal basis (w.r.t. the Frobenius scalar product) of the hermitian matrices of size 'dim'.
+    Returns a basis of the hermitian matrices of size ``dim`` that is orthogonal w.r.t. the Frobenius scalar product.
+    
+    :param dim: size of the matrices
+    :type dim:  int
     """
     basis = []
     # diagonal entries
