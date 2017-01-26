@@ -46,7 +46,7 @@ def hermitian_basis(dim):
     return basis
 
 def _assert_orthogonal(basis):
-    """Check ONB properties for a given ``basis``."""
+    """Check orthogonality for a given ``basis``."""
     for i, bi in enumerate(basis):
         for j, bj in enumerate(basis):
             if i == j:

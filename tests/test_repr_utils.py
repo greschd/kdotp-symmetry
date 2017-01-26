@@ -12,7 +12,7 @@ from kdotp_symmetry.repr_utils import frobenius_product, hermitian_basis, hermit
 
 sigma0 = sp.Matrix([[1, 0], [0, 1]])
 sigmax = sp.Matrix([[0, 1], [1, 0]])
-sigmay = sp.Matrix([[0, -1j], [1j, 0]])
+sigmay = sp.Matrix([[0, -sp.numbers.I], [sp.numbers.I, 0]])
 sigmaz = sp.Matrix([[1, 0], [0, -1]])
 
 sigma_vec = [sigma0, sigmax, sigmay, sigmaz]
@@ -31,19 +31,19 @@ def test_frobenius_product(A, B):
     (2, [
         sp.Matrix([[1, 0], [0, 0]]), 
         sp.Matrix([[0, 0], [0, 1]]),
-        sp.Integer(1) / sp.sqrt(2) * sp.Matrix([[0, 1], [1, 0]]),
-        sp.Integer(1) / sp.sqrt(2) * sp.Matrix([[0, -1j], [1j, 0]])
+        sp.Matrix([[0, 1], [1, 0]]),
+        sp.Matrix([[0, -sp.numbers.I], [sp.numbers.I, 0]])
     ]),
     (3, [
         sp.Matrix([[1, 0, 0], [0, 0, 0], [0, 0, 0]]),
         sp.Matrix([[0, 0, 0], [0, 1, 0], [0, 0, 0]]),
         sp.Matrix([[0, 0, 0], [0, 0, 0], [0, 0, 1]]),
-        1 / sp.sqrt(2) * sp.Matrix([[0, 1, 0], [1, 0, 0], [0, 0, 0]]),
-        1 / sp.sqrt(2) * sp.Matrix([[0, -1j, 0], [1j, 0, 0], [0, 0, 0]]),
-        1 / sp.sqrt(2) * sp.Matrix([[0, 0, 1], [0, 0, 0], [1, 0, 0]]),
-        1 / sp.sqrt(2) * sp.Matrix([[0, 0, -1j], [0, 0, 0], [1j, 0, 0]]),
-        1 / sp.sqrt(2) * sp.Matrix([[0, 0, 0], [0, 0, 1], [0, 1, 0]]),
-        1 / sp.sqrt(2) * sp.Matrix([[0, 0, 0], [0, 0, -1j], [0, 1j, 0]]),
+        sp.Matrix([[0, 1, 0], [1, 0, 0], [0, 0, 0]]),
+        sp.Matrix([[0, -sp.numbers.I, 0], [sp.numbers.I, 0, 0], [0, 0, 0]]),
+        sp.Matrix([[0, 0, 1], [0, 0, 0], [1, 0, 0]]),
+        sp.Matrix([[0, 0, -sp.numbers.I], [0, 0, 0], [sp.numbers.I, 0, 0]]),
+        sp.Matrix([[0, 0, 0], [0, 0, 1], [0, 1, 0]]),
+        sp.Matrix([[0, 0, 0], [0, 0, -sp.numbers.I], [0, sp.numbers.I, 0]]),
     ])
 ])
 def test_hermitian_basis(dim, result):
@@ -55,13 +55,13 @@ def test_hermitian_basis(dim, result):
 
 @pytest.mark.parametrize('mat,vec,basis', [
     (
-        sp.Matrix([[0, 1 + 1j], [1 - 1j, 0]]), 
-        (0, 0, sp.sqrt(2), -sp.sqrt(2)), 
+        sp.Matrix([[0, 1 + sp.numbers.I], [1 - sp.numbers.I, 0]]), 
+        (0, 0, 1, -1), 
         hermitian_basis(2)
     ),
     (
-        sp.Matrix([[2, sp.sqrt(2) + 1j], [sp.sqrt(2) - 1j, -3]]), 
-        (2, -3, 2, -sp.sqrt(2)), 
+        sp.Matrix([[2, sp.sqrt(2) + sp.numbers.I], [sp.sqrt(2) - sp.numbers.I, -3]]), 
+        (2, -3, sp.sqrt(2), -1), 
         hermitian_basis(2)
     )
 ])

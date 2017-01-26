@@ -15,4 +15,4 @@ if __name__ == '__main__':
             complex_conjugate=False
         )
     )
-    print(symmetric_hamiltonian(c2, power=1)[2])
+    print(symmetric_hamiltonian(c2, power=2))
