@@ -7,6 +7,10 @@
 
 from collections import namedtuple
 
+import sympy as sp
+import numpy as np
+from sympy.physics.quantum import TensorProduct
+
 from .expr_utils import expr_to_vector, monomial_basis, matrix_to_expr_operator
 from .repr_utils import hermitian_to_vector, hermitian_basis, repr_to_matrix_operator
 from .linalg import intersection_basis
@@ -17,13 +21,14 @@ SymmetryOperation = namedtuple('SymmetryOperation', ['kmatrix', 'repr'])
 
 def symmetric_hamiltonian(*symmetry_operations, power):
     expr_basis = monomial_basis(power)
-    repr_basis = hermitian_basis(dim=symmetry_operations[0].repr.matrix.shape[0])
     expr_dim = len(expr_basis)
+    repr_matrix_size = len(symmetry_operations[0].repr.matrix)
+    repr_basis = hermitian_basis(dim=repr_matrix_size)
     repr_dim = len(repr_basis)
     full_dim = expr_dim * repr_dim
     full_basis = [
         sp.Matrix(x) for x in 
-        np.outer(expr_basis, repr_basis).reshape(full_dim, repr_dim, repr_dim).tolist()
+        np.outer(expr_basis, repr_basis).reshape(full_dim, repr_matrix_size, repr_matrix_size).tolist()
     ]
     
     invariant_bases = []
@@ -40,9 +45,8 @@ def symmetric_hamiltonian(*symmetry_operations, power):
             to_vector_fct=hermitian_to_vector
         )
         # outer product
-        full_mat = sp.matrix(
-            np.einsum('ac,bd->abcd', expr_mat, repr_mat).reshape((full_dim, full_dim))
-        )
+        full_mat = TensorProduct(expr_mat, repr_mat)
+
         # get Eig(F \ocross G, 1) basis
         invariant_bases.append(
             np.array(
@@ -54,7 +58,7 @@ def symmetric_hamiltonian(*symmetry_operations, power):
     basis_vectors_expanded = []
     for vec in basis_vectors:
         basis_vectors_expanded.append(
-            sum((v * b for v, b in zip(vec, full_basis)), sp.zeros(repr_dim))
+            sum((v * b for v, b in zip(vec, full_basis)), sp.zeros(repr_matrix_size))
         )
     return basis_vectors, full_basis, basis_vectors_expanded
 

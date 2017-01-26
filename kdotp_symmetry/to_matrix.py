@@ -8,7 +8,6 @@
 import sympy as sp
 
 def to_matrix(operator, basis, to_vector_fct):
-    print([operator(b) for b in basis])
     return sp.Matrix([
         to_vector_fct(operator(b), basis=basis)
         for b in basis

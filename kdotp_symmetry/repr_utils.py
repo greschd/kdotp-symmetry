@@ -66,6 +66,7 @@ def hermitian_to_vector(matrix, basis):
     return vec
 
 def repr_to_matrix_operator(matrix_representation, complex_conjugate=False):
+    matrix_representation = sp.Matrix(matrix_representation)
     def operator(matrix):
         B = matrix @ matrix_representation.H
         if complex_conjugate:
