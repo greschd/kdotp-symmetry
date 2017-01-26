@@ -6,7 +6,7 @@
 # File:    test_linalg.py
 
 import pytest
-from kdotp_symmetry.linalg import zassenhaus, intersection_basis
+from kdotp_symmetry._linalg import zassenhaus, intersection_basis
 
 @pytest.mark.parametrize('input_bases,output_bases', [
     (

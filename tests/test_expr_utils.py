@@ -8,7 +8,7 @@
 import pytest
 import sympy as sp
 
-from kdotp_symmetry.expr_utils import expr_to_vector, monomial_basis, matrix_to_expr_operator
+from kdotp_symmetry._expr_utils import expr_to_vector, monomial_basis, matrix_to_expr_operator
 
 kx, ky, kz = sp.symbols('kx, ky, kz')
 

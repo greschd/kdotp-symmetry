@@ -11,10 +11,10 @@ import sympy as sp
 import numpy as np
 from sympy.physics.quantum import TensorProduct
 
-from .expr_utils import expr_to_vector, monomial_basis, matrix_to_expr_operator
-from .repr_utils import hermitian_to_vector, hermitian_basis, repr_to_matrix_operator
-from .linalg import intersection_basis
-from .to_matrix import to_matrix
+from ._expr_utils import expr_to_vector, monomial_basis, matrix_to_expr_operator
+from ._repr_utils import hermitian_to_vector, hermitian_basis, repr_to_matrix_operator
+from ._linalg import intersection_basis
+from ._to_matrix import to_matrix
 
 Representation = namedtuple('Representation', ['matrix', 'complex_conjugate'])
 SymmetryOperation = namedtuple('SymmetryOperation', ['kmatrix', 'repr'])
