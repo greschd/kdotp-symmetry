@@ -1,0 +1,1 @@
+Decorator to add objects to their module's __all__.

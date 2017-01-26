@@ -17,13 +17,14 @@ from ._repr_utils import hermitian_to_vector, hermitian_basis, repr_to_matrix_op
 from ._linalg import intersection_basis
 from ._to_matrix import to_matrix
 
-Representation = namedtuple('Representation', ['matrix', 'complex_conjugate'])
 SymmetryOperation = namedtuple('SymmetryOperation', ['kmatrix', 'repr'])
+Representation = namedtuple('Representation', ['matrix', 'complex_conjugate'])
 
 __all__ = ['Representation', 'SymmetryOperation']
 
 @export
 def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
+    """..."""
     expr_dim = len(expr_basis)
     repr_matrix_size = len(symmetry_operations[0].repr.matrix)
     if repr_basis == 'auto':
