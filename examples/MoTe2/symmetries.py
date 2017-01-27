@@ -12,8 +12,6 @@ from sympy.physics.quantum import TensorProduct
 
 import kdotp_symmetry as kp
 
-sp.init_printing(use_unicode=True)
-
 # In this project we used the basis of tensor products of Pauli matrices
 pauli_vec = [sp.eye(2), *(sm.msigma(i) for i in range(1, 4))]
 basis = [TensorProduct(p1, p2) for p1 in pauli_vec for p2 in pauli_vec]
@@ -41,24 +39,23 @@ time_reversal = kp.SymmetryOperation(
     )
 )
 
-#~ print('Zeroth order')
+print('Zeroth order')
+for m in kp.symmetric_hamiltonian(
+    c2y, parity, time_reversal,
+    expr_basis=kp.monomial_basis(0),
+    repr_basis=basis
+)[2]:
+    print('result:', m)
+print()
+
+#~ print('First order')
 #~ for m in kp.symmetric_hamiltonian(
     #~ c2y, parity, time_reversal,
-    #~ expr_basis=kp.monomial_basis(0),
+    #~ expr_basis=kp.monomial_basis(1),
     #~ repr_basis=basis
 #~ )[2]:
     #~ print(m)
 #~ print()
-
-print('First order')
-#~ print(kp.monomial_basis(1))
-for m in kp.symmetric_hamiltonian(
-    c2y, parity, time_reversal,
-    expr_basis=kp.monomial_basis(1),
-    repr_basis=basis
-)[2]:
-    print(m)
-print()
 
 #~ print('Second order')
 #~ for m in kp.symmetric_hamiltonian(

@@ -73,7 +73,7 @@ def repr_to_matrix_operator(matrix_representation, complex_conjugate=False):
     matrix_representation = sp.Matrix(matrix_representation)
     def operator(matrix):
         if complex_conjugate:
-            return matrix @  matrix_representation.conjugate() @ matrix_representation.H
+            return matrix_representation @  matrix.conjugate() @ matrix_representation.H
         else:
-            return matrix @  matrix_representation @ matrix_representation.H
+            return matrix_representation @  matrix @ matrix_representation.H
     return operator
