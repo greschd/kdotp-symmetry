@@ -16,7 +16,7 @@ ALLSPHINXOPTS   = -n -d $(HTMLBUILDDIR)/doctrees source
 
 .PHONY: all help clean html
 
-all: clean html
+all: html
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"

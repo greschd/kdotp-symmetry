@@ -1,15 +1,23 @@
+.. _home:
+
 kdotp-symmetry
 ==============
 
 This is a tool to calculate the general form of a :math:`\mathbf{k}\cdot\mathbf{p}` Hamiltonian under a given symmetry constraint.
 
-Goal
-----
-
 Usage
 -----
 
+You can install this tool with with pip:
 
+.. code ::
+
+    pip install kdotp-symmetry
+
+Its usage is best explained with an example. 
+
+
+The :ref:`reference<reference>` gives you an overview of the available functions and classes.
 
 Formalism
 ---------
@@ -54,10 +62,7 @@ and thus
 In conclusion, the problem of finding the general form of the Hamiltonian is equivalent to calculating this subspace.
 
 
-Tutorial and Reference
-======================
 .. toctree::
-    :maxdepth: 2
     
-    tutorial.rst
+    Usage and Formalism <self>
     reference.rst
