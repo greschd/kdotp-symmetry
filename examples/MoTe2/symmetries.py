@@ -40,6 +40,7 @@ time_reversal = kp.SymmetryOperation(
 )
 
 def print_result(order):
+    """prints the basis for a given order of k"""
     print('Order:', order)
     for m in kp.symmetric_hamiltonian(
         c2y, parity, time_reversal,
@@ -49,5 +50,6 @@ def print_result(order):
         print(m)
     print()
 
-for i in range(3):
-    print_result(order=i)
+if __name__ == '__main__':
+    for i in range(3):
+        print_result(order=i)

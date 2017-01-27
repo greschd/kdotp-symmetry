@@ -32,8 +32,11 @@ __all__ = ['Representation', 'SymmetryOperation']
 def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
     """..."""
     expr_dim = len(expr_basis)
+    # for sympy or numpy matrices
     try:
         repr_matrix_size = symmetry_operations[0].repr.matrix.shape[0]
+    # for plain lists -- this doesn't work for sympy matrices because
+    # their 'len' is the total number of elements
     except AttributeError:
         repr_matrix_size = len(symmetry_operations[0].repr.matrix)
 
