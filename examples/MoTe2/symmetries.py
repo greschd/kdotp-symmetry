@@ -20,7 +20,7 @@ basis = [TensorProduct(p1, p2) for p1 in pauli_vec for p2 in pauli_vec]
 c2y = kp.SymmetryOperation(
     kmatrix=[[0, 1, 0], [1, 0, 0], [0, 0, -1]],
     repr=kp.Representation(
-        matrix=sp.diag(I, -I, I, I),
+        matrix=sp.diag(I, -I, I, -I),
         complex_conjugate=False
     )
 )
@@ -39,28 +39,15 @@ time_reversal = kp.SymmetryOperation(
     )
 )
 
-print('Zeroth order')
-for m in kp.symmetric_hamiltonian(
-    c2y, parity, time_reversal,
-    expr_basis=kp.monomial_basis(0),
-    repr_basis=basis
-)[2]:
-    print('result:', m)
-print()
+def print_result(order):
+    print('Order:', order)
+    for m in kp.symmetric_hamiltonian(
+        c2y, parity, time_reversal,
+        expr_basis=kp.monomial_basis(order),
+        repr_basis=basis
+    )[2]:
+        print(m)
+    print()
 
-#~ print('First order')
-#~ for m in kp.symmetric_hamiltonian(
-    #~ c2y, parity, time_reversal,
-    #~ expr_basis=kp.monomial_basis(1),
-    #~ repr_basis=basis
-#~ )[2]:
-    #~ print(m)
-#~ print()
-
-#~ print('Second order')
-#~ for m in kp.symmetric_hamiltonian(
-    #~ c2y, parity, time_reversal,
-    #~ expr_basis=kp.monomial_basis(2),
-    #~ repr_basis=basis
-#~ )[2]:
-    #~ print(m)
+for i in range(3):
+    print_result(order=i)
