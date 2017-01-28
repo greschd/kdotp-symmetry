@@ -78,5 +78,5 @@ def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
         basis_vectors_expanded.append(
             sum((v * b for v, b in zip(vec, full_basis)), sp.zeros(repr_matrix_size))
         )
-    return basis_vectors, full_basis, basis_vectors_expanded
+    return basis_vectors_expanded
 

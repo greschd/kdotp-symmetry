@@ -14,8 +14,25 @@ You can install this tool with with pip:
 
     pip install kdotp-symmetry
 
-Its usage is best explained with an example. 
+Its usage is best explained with an example -- I'll pick a four-band Hamiltonian for TaAs\ :sub:`2`. If you're interested in the physics of this particular example, it comes from a `paper <https://arxiv.org/abs/1611.01858>`_ of ours where we also used this :math:`\mathbf{k}\cdot\mathbf{p}` model. As for now, all we will need to know about the material is its symmetry, and the relevant representations for the given bands.
 
+The symmetry group of the material is :math:`C2 / m` (space group 12), which means it has rotation :math:`C_{2y}`, parity :math:`P`, mirror :math:`M_y` and time-reversal symmetry :math:`\mathcal{T}`. For the analysis of the Hamiltonian we only need a generating set of the group, so we can pick :math:`C_{2y}`, :math:`P` and :math:`\mathcal{T}`. In the particular basis we chose for this analysis, the :math:`\mathbf{k}`-space matrix for these symmetries are as follows:
+
+.. math :: 
+    
+    C_{2y} =& ~\begin{pmatrix} 0&1&0 \\ 1&0&0 \\ 0&0&-1 \end{pmatrix}\\
+    P =& ~-\mathbb{1}_{3\times 3}\\
+    \mathcal{T} =& ~-\mathbb{1}_{3\times 3}
+    
+The corresponding representations are 
+
+.. math ::
+    
+    C_{2y} =& ~\begin{pmatrix} i&0&0&0 \\ 0&-i&0&0 \\ 0&0&i&0 \\ 0&0&0&-i \end{pmatrix} \\
+    P =& ~\begin{pmatrix} 1&0&0&0 \\ 0&1&0&0 \\ 0&0&-1&0 \\ 0&0&0&-1 \end{pmatrix} \\
+    \mathcal{T} =& ~\begin{pmatrix} 0&-1&0&0 \\ 1&0&0&0 \\ 0&0&0&-1 \\ 0&0&1&0 \end{pmatrix} ~\hat{K},
+
+where :math:`\hat{K}` is complex conjugation.
 
 The :ref:`reference<reference>` gives you an overview of the available functions and classes.
 
