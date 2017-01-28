@@ -5,14 +5,23 @@ kdotp-symmetry
 
 This is a tool to calculate the general form of a :math:`\mathbf{k}\cdot\mathbf{p}` Hamiltonian under a given symmetry constraint.
 
+.. contents ::
+    :local:
+
 Usage
 -----
+
+Installation
+~~~~~~~~~~~~
 
 You can install this tool with with pip:
 
 .. code ::
 
     pip install kdotp-symmetry
+    
+Example: TaAs\ :sub:`2`
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Its usage is best explained with an example -- I'll pick a four-band Hamiltonian for TaAs\ :sub:`2`. If you're interested in the physics of this particular example, it comes from a `paper <https://arxiv.org/abs/1611.01858>`_ of ours where we also used this :math:`\mathbf{k}\cdot\mathbf{p}` model. As for now, all we will need to know about the material is its symmetry, and the relevant representations for the given bands.
 
@@ -33,6 +42,31 @@ The corresponding representations are
     \mathcal{T} =& ~\begin{pmatrix} 0&-1&0&0 \\ 1&0&0&0 \\ 0&0&0&-1 \\ 0&0&1&0 \end{pmatrix} ~\hat{K},
 
 where :math:`\hat{K}` is complex conjugation.
+
+Creating the :class:`.SymmetryOperation`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In order to run the code, we must first specify the symmetries as described above. To do this, we can use the :class:`.SymmetryOperation` class, which is a :py:func:`namedtuple <collections.namedtuple>` with two attributes ``kmatrix`` and ``repr``.
+
+The first attribute, ``kmatrix``, is just the :math:`\mathbf{k}`-space matrix for the symmetry. 
+
+The second, ``repr``, describes the symmetry representation which can either be a unitary matrix :math:`U`, or a unitary matrix and complex conjugation :math:`U \hat{K}`. As such, the ``repr`` is another :py:func:`namedtuple <collections.namedtuple>` called :class:`.Representation` with two attributes ``matrix`` and ``complex_conjugate``. The ``matrix`` is the unitary matrix :math:`U`, and ``complex_conjugate`` is a :py:class:`bool` describing whether the representation contains complex conjugation (``True``) or not (``False``).
+
+The following code creates the symmetries described above:
+
+.. include :: ../../examples/TaAs2/symmetries.py
+    :code: python
+    :start-line: 8
+    :end-line: 40
+
+
+Expression basis
+~~~~~~~~~~~~~~~~
+
+Representation basis
+~~~~~~~~~~~~~~~~~~~~
+
+
 
 The :ref:`reference<reference>` gives you an overview of the available functions and classes.
 
@@ -80,6 +114,8 @@ In conclusion, the problem of finding the general form of the Hamiltonian is equ
 
 
 .. toctree::
+    :hidden:
     
     Usage and Formalism <self>
+    example.rst
     reference.rst
