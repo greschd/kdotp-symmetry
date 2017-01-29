@@ -30,7 +30,20 @@ __all__ = ['Representation', 'SymmetryOperation']
 
 @export
 def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
-    """..."""
+    """
+    Calculates the basis of the symmetric Hamiltonian for a given set of symmetry operations. 
+    
+    :param symmetry_operations: The symmetry operations that the Hamiltonian should respect.
+    :type symmetry_operations: SymmetryOperation
+    
+    :param expr_basis: The basis for the :math:`\mathbf{k}`-functions that are considered.
+    :type expr_basis: :py:class:`list` of :py:mod:`sympy` expressions
+    
+    :param repr_basis: The basis for the hermitian matrices, with the same size as the representations. By default, the :py:func:`.hermitian_basis` of the appropriate size is used.
+    :type repr_basis: :py:class:`list` of :py:mod:`sympy` matrices
+    
+    :returns: Basis for the symmetric Hamiltonian, as a :py:class:`list` of :py:mod:`sympy` matrix expressions.
+    """
     expr_dim = len(expr_basis)
     # for sympy or numpy matrices
     try:
