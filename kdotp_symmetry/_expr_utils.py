@@ -47,13 +47,13 @@ def expr_to_vector(
     return vec
 
 @export
-def monomial_basis(*powers):
-    """Returns the monomial basis of (kx, ky, kz), for the given powers."""
-    if any(p < 0 for p in powers):
-        raise ValueError('Powers must be non-negative integers')
+def monomial_basis(*degrees):
+    """Returns the monomial basis of (kx, ky, kz), for the given degrees."""
+    if any(p < 0 for p in degrees):
+        raise ValueError('Degrees must be non-negative integers')
     basis = []
-    for p in sorted(powers):
-        monomial_tuples = combinations_with_replacement(K_VEC, p)
+    for d in sorted(degrees):
+        monomial_tuples = combinations_with_replacement(K_VEC, d)
         basis.extend(
             reduce(operator.mul, m, sp.Integer(1))
             for m in monomial_tuples

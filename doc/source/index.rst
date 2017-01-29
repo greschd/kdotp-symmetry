@@ -50,7 +50,7 @@ In order to run the code, we must first specify the symmetries as described abov
 
 The first attribute, ``kmatrix``, is just the :math:`\mathbf{k}`-space matrix for the symmetry. 
 
-The second, ``repr``, describes the symmetry representation which can either be a unitary matrix :math:`U`, or a unitary matrix and complex conjugation :math:`U \hat{K}`. As such, the ``repr`` is another :py:func:`namedtuple <collections.namedtuple>` called :class:`.Representation` with two attributes ``matrix`` and ``complex_conjugate``. The ``matrix`` is the unitary matrix :math:`U`, and ``complex_conjugate`` is a :py:class:`bool` describing whether the representation contains complex conjugation (``True``) or not (``False``).
+The second, ``repr``, describes the symmetry representation which can either be a unitary matrix :math:`U`, or a unitary matrix and complex conjugation :math:`U \hat{K}`. Because of this, the ``repr`` is another :py:func:`namedtuple <collections.namedtuple>` called :class:`.Representation` with two attributes ``matrix`` and ``complex_conjugate``. The ``matrix`` is the unitary matrix :math:`U`, and ``complex_conjugate`` is a :py:class:`bool` describing whether the representation contains complex conjugation (``True``) or not (``False``).
 
 The following code creates the symmetries described above:
 
@@ -59,14 +59,37 @@ The following code creates the symmetries described above:
     :start-line: 8
     :end-line: 40
 
+.. note :: Since this tools performs symbolic operations, it uses the :py:mod:`sympy` module under the hood. To make sure that there are no rounding errors, I strongly recommend using :py:mod:`sympy` classes such as :py:mod:`sympy.Matrix <sympy.matrices>` for all input.
 
-Expression basis
-~~~~~~~~~~~~~~~~
+Getting the basis for the symmetrized Hamiltonian
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Representation basis
-~~~~~~~~~~~~~~~~~~~~
+The basis of the symmetrized Hamiltonian can be constructed with the :func:`.symmetric_hamiltonian` function. Besides the symmetries, it needs two inputs ``expr_basis`` and ``repr_basis``.
+
+The first, ``expr_basis``, is a basis of the functions of :math:`\mathbf{k}` that are considered, as a list of :py:mod:`sympy` expressions. To simply use powers of :math:`k_x, k_y, k_z`, you can use the :func:`.monomial_basis` helper function. With this function, you can create the monomial basis for a given set of degrees. For example, to get a constant term and second degree terms as follows:
+
+.. code :: python
+
+    >>> import kdotp_symmetry as kp
+    >>> kp.monomial_basis(0, 2)
+    [1, kx**2, kx*ky, kx*kz, ky**2, ky*kz, kz**2]
 
 
+The second, required input variable is ``repr_basis``, which must be a basis of the hermitian matrices, with the same size as the symmetry representation. The basis must be orthogonal with respect to the Frobenius product. Again you can use a helper function, :func:`.hermitian_basis`, giving the size as an argument:
+
+    >>> import kdotp_symmetry as kp
+    >>> kp.hermitian_basis(2)
+    [Matrix([
+    [1, 0],
+    [0, 0]]), Matrix([
+    [0, 0],
+    [0, 1]]), Matrix([
+    [0, 1],
+    [1, 0]]), Matrix([
+    [0, -I],
+    [I,  0]])]
+
+Finally, you can use the :func:`.symmetric_hamiltonian` function to get the result. The complete code for the TaAs\ :sub:`2` example can be found :ref:`here <example_taas2>`.
 
 The :ref:`reference<reference>` gives you an overview of the available functions and classes.
 
