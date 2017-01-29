@@ -21,6 +21,20 @@ def hermitian_basis(dim):
     
     :param dim: size of the matrices
     :type dim:  int
+    
+    Example: 
+    
+        >>> import kdotp_symmetry as kp
+        >>> kp.hermitian_basis(2)
+        [Matrix([
+        [1, 0],
+        [0, 0]]), Matrix([
+        [0, 0],
+        [0, 1]]), Matrix([
+        [0, 1],
+        [1, 0]]), Matrix([
+        [0, -I],
+        [I,  0]])]
     """
     basis = []
     # diagonal entries

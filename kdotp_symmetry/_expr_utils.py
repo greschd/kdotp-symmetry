@@ -48,7 +48,18 @@ def expr_to_vector(
 
 @export
 def monomial_basis(*degrees):
-    """Returns the product basis of (kx, ky, kz), with monomials of the given degrees."""
+    """
+    Returns the product basis of (kx, ky, kz), with monomials of the given degrees.
+        
+    :param degrees: Degree of the monomials. Multiple degrees can be given, in which case the basis consists of the monomials of all given degrees.
+    :type degrees: int
+    
+    Example:
+
+        >>> import kdotp_symmetry as kp
+        >>> kp.monomial_basis(*range(3))
+        [1, kx, ky, kz, kx**2, kx*ky, kx*kz, ky**2, ky*kz, kz**2]
+    """
     if any(p < 0 for p in degrees):
         raise ValueError('Degrees must be non-negative integers')
     basis = []
