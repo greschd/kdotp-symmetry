@@ -48,7 +48,7 @@ def expr_to_vector(
 
 @export
 def monomial_basis(*degrees):
-    """Returns the monomial basis of (kx, ky, kz), for the given degrees."""
+    """Returns the product basis of (kx, ky, kz), with monomials of the given degrees."""
     if any(p < 0 for p in degrees):
         raise ValueError('Degrees must be non-negative integers')
     basis = []

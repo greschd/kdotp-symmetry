@@ -18,13 +18,13 @@ from ._linalg import intersection_basis
 from ._to_matrix import to_matrix
 
 SymmetryOperation = namedtuple('SymmetryOperation', ['kmatrix', 'repr'])
-SymmetryOperation.__doc__ = 'TODO'
-SymmetryOperation.kmatrix.__doc__ = 'TODO'
-SymmetryOperation.repr.__doc__ = 'TODO'
+SymmetryOperation.__doc__ = 'Describes a symmetry operation.'
+SymmetryOperation.kmatrix.__doc__ = r'The :math:`\mathbf{k}`-space matrix corresponding to the symmetry operation.'
+SymmetryOperation.repr.__doc__ = 'The :class:`.Representation` instance corresponding to the symmetry operation.'
 Representation = namedtuple('Representation', ['matrix', 'complex_conjugate'])
-Representation.__doc__ = 'TODO'
-Representation.matrix.__doc__ = 'TODO'
-Representation.complex_conjugate.__doc__ = 'TODO'
+Representation.__doc__ = 'Describes an (anti-)unitary representation of a symmetry operation.'
+Representation.matrix.__doc__ = 'The unitary matrix corresponding to the representation.'
+Representation.complex_conjugate.__doc__ = r'Flag to specify whether the representation is just a unitary matrix :math:`D(g)=U` (``False``) or contains a complex conjugation :math:`D(g)=U\hat{K}` (``True``).'
 
 __all__ = ['Representation', 'SymmetryOperation']
 
