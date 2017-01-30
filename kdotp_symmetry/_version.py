@@ -7,4 +7,4 @@
 
 """Specifies the module's version"""
 
-__version__ = '0.0.0a0'
+__version__ = '0.0.0b1'
