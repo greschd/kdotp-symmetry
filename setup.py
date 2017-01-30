@@ -37,7 +37,8 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Intended Audience :: Science/Research',
-        'Topic :: Scientific/Engineering :: Physics'
+        'Topic :: Scientific/Engineering :: Physics',
+        'Development Status :: 4 - Beta'
     ],
     license='GPL',
     packages=['kdotp_symmetry']
