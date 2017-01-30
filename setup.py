@@ -24,6 +24,7 @@ with open('./kdotp_symmetry/_version.py', 'r') as f:
 setup(
     name='kdotp-symmetry',
     version=version,
+    url='http://z2pack.ethz.ch/kdotp-symmetry',
     author='Dominik Gresch',
     author_email='greschd@gmx.ch',
     description='Calculating the general form of a k.p Hamiltonian with given symmetry constraints.',
