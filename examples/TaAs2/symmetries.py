@@ -46,7 +46,7 @@ def print_result(order):
         c2y, parity, time_reversal,
         expr_basis=kp.monomial_basis(order),
         repr_basis=basis
-    )[2]:
+    ):
         print(m)
     print()
 
