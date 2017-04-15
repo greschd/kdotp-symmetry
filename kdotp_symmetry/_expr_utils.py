@@ -42,6 +42,7 @@ def expr_to_vector(
     if len(res) != 1:
         raise ValueError('No or multiple results found: {}'.format(res))
     vec = next(iter(res))
+    vec = tuple(v.nsimplify() for v in vec)
     # check consistency
     assert expr.equals(sum(v * b for v, b in zip(vec, basis)))
     return vec

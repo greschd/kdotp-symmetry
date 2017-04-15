@@ -79,6 +79,7 @@ def hermitian_to_vector(matrix, basis):
     """
     _assert_orthogonal(basis)
     vec = tuple(frobenius_product(matrix, b) / frobenius_product(b, b) for b in basis)
+    vec = tuple(v.nsimplify() for v in vec)
     # check consistency
     assert matrix.equals(sum((v * b for v, b in zip(vec, basis)), sp.zeros(*matrix.shape)))
     return vec
