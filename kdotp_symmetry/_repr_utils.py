@@ -18,12 +18,12 @@ def frobenius_product(A, B):
 def hermitian_basis(dim):
     """
     Returns a basis of the hermitian matrices of size ``dim`` that is orthogonal w.r.t. the Frobenius scalar product.
-    
+
     :param dim: size of the matrices
     :type dim:  int
-    
-    Example: 
-    
+
+    Example:
+
         >>> import kdotp_symmetry as kp
         >>> kp.hermitian_basis(2)
         [Matrix([
@@ -80,7 +80,7 @@ def hermitian_to_vector(matrix, basis):
     _assert_orthogonal(basis)
     vec = tuple(frobenius_product(matrix, b) / frobenius_product(b, b) for b in basis)
     # check consistency
-    assert sp.Eq(sum((v * b for v, b in zip(vec, basis)), sp.zeros(*matrix.shape)), matrix)
+    assert matrix.equals(sum((v * b for v, b in zip(vec, basis)), sp.zeros(*matrix.shape)))
     return vec
 
 def repr_to_matrix_operator(matrix_representation, complex_conjugate=False):

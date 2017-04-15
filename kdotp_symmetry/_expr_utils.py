@@ -43,17 +43,17 @@ def expr_to_vector(
         raise ValueError('No or multiple results found: {}'.format(res))
     vec = next(iter(res))
     # check consistency
-    assert sp.simplify(sp.Eq(sum(v * b for v, b in zip(vec, basis)), expr))
+    assert expr.equals(sum(v * b for v, b in zip(vec, basis)))
     return vec
 
 @export
 def monomial_basis(*degrees):
     """
     Returns the product basis of (kx, ky, kz), with monomials of the given degrees.
-        
+
     :param degrees: Degree of the monomials. Multiple degrees can be given, in which case the basis consists of the monomials of all given degrees.
     :type degrees: int
-    
+
     Example:
 
         >>> import kdotp_symmetry as kp
@@ -70,11 +70,11 @@ def monomial_basis(*degrees):
             for m in monomial_tuples
         )
     return basis
-    
+
 def matrix_to_expr_operator(k_matrix_form):
     """Returns a function that operates on expression, corresponding to the given ``k_matrix_form`` which operates on a vector in k-space."""
     substitution = list(zip(
-        K_VEC, 
+        K_VEC,
         next(iter(
             sp.linsolve((sp.Matrix(k_matrix_form), sp.Matrix(K_VEC)), K_VEC)
         ))
