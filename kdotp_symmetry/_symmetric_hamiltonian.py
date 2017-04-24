@@ -79,7 +79,7 @@ def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
         # get Eig(F \ocross G, 1) basis
         invariant_bases.append(
             np.array(
-                (full_mat - sp.eye(full_dim)).nullspace()
+                (full_mat - sp.eye(full_dim)).nullspace(simplify=sp.nsimplify)
             ).tolist()
         )
 
