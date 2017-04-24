@@ -95,6 +95,4 @@ from kdotp_symmetry._repr_utils import hermitian_to_vector, hermitian_basis, rep
     )
 ])
 def test_to_matrix(operator, basis, to_vector_fct, result):
-    # kx, ky, kz = K_VEC
-    print(to_matrix(operator, basis, to_vector_fct))
     assert to_matrix(operator, basis, to_vector_fct) == result
