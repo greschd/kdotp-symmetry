@@ -31,17 +31,17 @@ __all__ = ['Representation', 'SymmetryOperation']
 @export
 def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
     """
-    Calculates the basis of the symmetric Hamiltonian for a given set of symmetry operations. 
-    
+    Calculates the basis of the symmetric Hamiltonian for a given set of symmetry operations.
+
     :param symmetry_operations: The symmetry operations that the Hamiltonian should respect.
     :type symmetry_operations: SymmetryOperation
-    
+
     :param expr_basis: The basis for the :math:`\mathbf{k}`-functions that are considered.
     :type expr_basis: :py:class:`list` of :py:mod:`sympy` expressions
-    
+
     :param repr_basis: The basis for the hermitian matrices, with the same size as the representations. By default, the :py:func:`.hermitian_basis` of the appropriate size is used.
     :type repr_basis: :py:class:`list` of :py:mod:`sympy` matrices
-    
+
     :returns: Basis for the symmetric Hamiltonian, as a :py:class:`list` of :py:mod:`sympy` matrix expressions.
     """
     expr_dim = len(expr_basis)
@@ -58,10 +58,10 @@ def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
     repr_dim = len(repr_basis)
     full_dim = expr_dim * repr_dim
     full_basis = [
-        sp.Matrix(x) for x in 
+        sp.Matrix(x) for x in
         np.outer(expr_basis, repr_basis).reshape(full_dim, repr_matrix_size, repr_matrix_size).tolist()
     ]
-    
+
     invariant_bases = []
     for op in symmetry_operations:
         # create the matrix form of the two operators
@@ -81,10 +81,10 @@ def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
         # get Eig(F \ocross G, 1) basis
         invariant_bases.append(
             np.array(
-                (full_mat - sp.eye(full_dim)).nullspace()
+                (full_mat - sp.eye(full_dim)).nullspace(simplify=sp.nsimplify)
             ).tolist()
         )
-    
+
     basis_vectors = intersection_basis(*invariant_bases)
     basis_vectors_expanded = []
     for vec in basis_vectors:
@@ -92,4 +92,3 @@ def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
             sum((v * b for v, b in zip(vec, full_basis)), sp.zeros(repr_matrix_size))
         )
     return basis_vectors_expanded
-
