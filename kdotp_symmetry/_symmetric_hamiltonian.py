@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 #
 # Author:  Dominik Gresch <greschd@gmx.ch>
-# Date:    25.01.2017 15:14:49 CET
-# File:    analyse.py
 
 from collections import namedtuple
 
