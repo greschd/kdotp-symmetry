@@ -9,6 +9,7 @@ import sympy as sp
 from sympy.core.numbers import I
 import sympy.physics.matrices as sm
 from sympy.physics.quantum import TensorProduct
+import symmetry_representation as sr
 
 import kdotp_symmetry as kp
 
@@ -17,26 +18,22 @@ pauli_vec = [sp.eye(2), *(sm.msigma(i) for i in range(1, 4))]
 basis = [TensorProduct(p1, p2) for p1 in pauli_vec for p2 in pauli_vec]
 
 # creating the symmetry operations
-c2y = kp.SymmetryOperation(
-    kmatrix=[[0, 1, 0], [1, 0, 0], [0, 0, -1]],
-    repr=kp.Representation(
-        matrix=sp.diag(I, -I, I, -I),
-        complex_conjugate=False
-    )
+c2y = sr.SymmetryOperation(
+    rotation_matrix=[[0, 1, 0], [1, 0, 0], [0, 0, -1]],
+    repr_matrix=sp.diag(I, -I, I, -I),
+    repr_has_cc=False
 )
-parity = kp.SymmetryOperation(
-    kmatrix=-sp.eye(3),
-    repr=kp.Representation(
-        matrix=sp.diag(1, 1, -1, -1),
-        complex_conjugate=False
-    )
+
+parity = sr.SymmetryOperation(
+    rotation_matrix=-sp.eye(3),
+    repr_matrix=sp.diag(1, 1, -1, -1),
+    repr_has_cc=False
 )
-time_reversal = kp.SymmetryOperation(
-    kmatrix=-sp.eye(3),
-    repr=kp.Representation(
-        matrix=TensorProduct(sp.eye(2), sp.Matrix([[0, -1], [1, 0]])),
-        complex_conjugate=True
-    )
+
+time_reversal = sr.SymmetryOperation(
+    rotation_matrix=sp.eye(3),
+    repr_matrix=TensorProduct(sp.eye(2), sp.Matrix([[0, -1], [1, 0]])),
+    repr_has_cc=True
 )
 
 def print_result(order):

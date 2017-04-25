@@ -9,6 +9,7 @@ import pytest
 import sympy as sp
 from sympy import Matrix
 from sympy.core.numbers import I
+import symmetry_representation as sr
 
 import kdotp_symmetry as kp
 
@@ -16,27 +17,23 @@ kx, ky, kz = sp.symbols('kx, ky, kz')
 
 @pytest.mark.parametrize('symmetry_operations,expr_basis,repr_basis,result', [
     (
-        [kp.SymmetryOperation(
-            kmatrix=[[0, 1, 0], [1, 0, 0], [0, 0, 1]],
-            repr=kp.Representation(
-                matrix=[[0, 1], [1, 0]],
-                complex_conjugate=False
-            )
+        [sr.SymmetryOperation(
+            rotation_matrix=[[0, 1, 0], [1, 0, 0], [0, 0, 1]],
+            repr_matrix=[[0, 1], [1, 0]],
+            repr_has_cc=False
         )],
         kp.monomial_basis(0),
         'auto',
         [
-            Matrix([[1, 0], [0, 1]]), 
+            Matrix([[1, 0], [0, 1]]),
             Matrix([[0, 1], [1, 0]])
         ]
     ),
     (
-        [kp.SymmetryOperation(
-            kmatrix=[[0, 1, 0], [1, 0, 0], [0, 0, 1]],
-            repr=kp.Representation(
-                matrix=[[0, 1], [1, 0]],
-                complex_conjugate=False
-            )
+        [sr.SymmetryOperation(
+            rotation_matrix=[[0, 1, 0], [1, 0, 0], [0, 0, 1]],
+            repr_matrix=[[0, 1], [1, 0]],
+            repr_has_cc=False
         )],
         kp.monomial_basis(1),
         'auto',
@@ -52,8 +49,7 @@ kx, ky, kz = sp.symbols('kx, ky, kz')
 ])
 def test_symmetric_hamiltonian(symmetry_operations, expr_basis, repr_basis, result):
     assert kp.symmetric_hamiltonian(
-        *symmetry_operations, 
-        expr_basis=expr_basis, 
+        *symmetry_operations,
+        expr_basis=expr_basis,
         repr_basis=repr_basis
     ) == result
-

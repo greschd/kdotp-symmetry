@@ -72,14 +72,16 @@ def monomial_basis(*degrees):
         )
     return basis
 
-def matrix_to_expr_operator(k_matrix_form):
-    """Returns a function that operates on expression, corresponding to the given ``k_matrix_form`` which operates on a vector in k-space."""
-    substitution = list(zip(
-        K_VEC,
-        next(iter(
-            sp.linsolve((sp.Matrix(k_matrix_form), sp.Matrix(K_VEC)), K_VEC)
-        ))
-    ))
+def matrix_to_expr_operator(matrix_form, repr_has_cc=False):
+    """Returns a function that operates on expression, corresponding to the given ``matrix_form`` which operates on a vector in real space. ``repr_has_cc`` determines whether the symmetry contains time reversal."""
+    # k-form and r-form of the matrix are related by A -> A^-1^T
+    # => matrix^T gives g^-1 in k-space coordinates
+    # Change sign if the representation has complex conjugation
+    k_matrix_form = sp.Matrix(matrix_form).T
+    if repr_has_cc:
+        k_matrix_form *= -1
+    substitution = list(zip(K_VEC, k_matrix_form @ sp.Matrix(K_VEC)))
+    print(substitution)
     def operator(expr):
         return expr.subs(substitution, simultaneous=True)
     return operator
