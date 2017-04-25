@@ -81,7 +81,6 @@ def matrix_to_expr_operator(matrix_form, repr_has_cc=False):
     if repr_has_cc:
         k_matrix_form *= -1
     substitution = list(zip(K_VEC, k_matrix_form @ sp.Matrix(K_VEC)))
-    print(substitution)
     def operator(expr):
         return expr.subs(substitution, simultaneous=True)
     return operator
