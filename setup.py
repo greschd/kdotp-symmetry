@@ -28,7 +28,7 @@ setup(
     author='Dominik Gresch',
     author_email='greschd@gmx.ch',
     description='Calculating the general form of a k.p Hamiltonian with given symmetry constraints.',
-    install_requires=['sympy', 'numpy', 'fsc.export'],
+    install_requires=['sympy', 'numpy', 'scipy', 'fsc.export'],
     long_description=readme,
     classifiers=[
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',

@@ -8,6 +8,7 @@ from collections import namedtuple
 import sympy as sp
 from sympy.physics.quantum import TensorProduct
 import numpy as np
+import scipy.linalg as la
 from fsc.export import export
 
 from ._expr_utils import expr_to_vector, monomial_basis, matrix_to_expr_operator
@@ -77,11 +78,10 @@ def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
         full_mat = TensorProduct(expr_mat, repr_mat)
 
         # get Eig(F \ocross G, 1) basis
-        invariant_bases.append(
-            np.array(
-                (full_mat - sp.eye(full_dim)).nullspace(simplify=sp.nsimplify)
-            ).tolist()
-        )
+        mat = full_mat - sp.eye(full_dim)
+        curr_basis = mat.nullspace(simplify=sp.nsimplify)
+        assert len(curr_basis) == _numeric_nullspace_dim(mat)
+        invariant_bases.append(curr_basis)
 
     basis_vectors = intersection_basis(*invariant_bases)
     basis_vectors_expanded = []
@@ -90,3 +90,8 @@ def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
             sum((v * b for v, b in zip(vec, full_basis)), sp.zeros(repr_matrix_size))
         )
     return basis_vectors_expanded
+
+def _numeric_nullspace_dim(mat):
+    mat_numeric = np.array(mat.evalf().tolist(), dtype=complex)
+    eigenvals = la.eigvals(mat_numeric)
+    return np.sum(np.isclose(eigenvals, np.zeros_like(eigenvals)))
