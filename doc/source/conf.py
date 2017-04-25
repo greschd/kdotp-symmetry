@@ -41,6 +41,7 @@ extensions = [
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
     'sympy': ('http://docs.sympy.org/latest', None),
+    'symmetry-representation': ('http://z2pack.ethz.ch/symmetry-representation/', None),
 }
 
 # Add any paths that contain templates here, relative to this directory.
