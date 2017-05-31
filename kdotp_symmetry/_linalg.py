@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-# Author:  Dominik Gresch <greschd@gmx.ch>
-# Date:    24.01.2017 10:19:47 CET
-# File:    linalg.py
 
 from collections import namedtuple
 

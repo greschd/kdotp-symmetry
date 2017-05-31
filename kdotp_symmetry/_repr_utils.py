@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
-#
-# Author:  Dominik Gresch <greschd@gmx.ch>
-# Date:    21.01.2017 09:41:11 CET
-# File:    matrix_to_vector.py
 
 import sympy as sp
 from fsc.export import export

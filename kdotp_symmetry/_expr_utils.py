@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-# Author:  Dominik Gresch <greschd@gmx.ch>
-# Date:    21.01.2017 09:41:18 CET
-# File:    expr_to_vector.py
 
 import random
 import operator
