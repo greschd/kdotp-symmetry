@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-# Author:  Dominik Gresch <greschd@gmx.ch>
-# Date:    24.01.2017 11:53:31 CET
-# File:    test_linalg.py
 
 import pytest
 from kdotp_symmetry._linalg import zassenhaus, intersection_basis

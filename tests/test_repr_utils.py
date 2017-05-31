@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-# Author:  Dominik Gresch <greschd@gmx.ch>
-# Date:    23.01.2017 13:56:42 CET
-# File:    test_hermitian_utils.py
 
 import pytest
 import sympy as sp

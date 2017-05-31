@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-# Author:  Dominik Gresch <greschd@gmx.ch>
-# Date:    26.01.2017 14:34:15 CET
-# File:    test_symmetric_hamiltonian.py
 
 import pytest
 import sympy as sp

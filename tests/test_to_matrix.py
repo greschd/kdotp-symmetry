@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-# Author:  Dominik Gresch <greschd@gmx.ch>
-# Date:    23.01.2017 14:41:35 CET
-# File:    test_to_matrix.py
 
 import pytest
 import sympy as sp
