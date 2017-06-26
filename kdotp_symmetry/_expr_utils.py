@@ -35,8 +35,7 @@ def expr_to_vector(
         raise ValueError('Could not find a sufficient number of linearly independent vectors')
 
     res = sp.linsolve((sp.Matrix(A), sp.Matrix(b)), sp.symbols('a b c'))
-    if len(res) != 1:
-        raise ValueError('No or multiple results found: {}'.format(res))
+    assert len(res) == 1
     vec = next(iter(res))
     vec = tuple(v.nsimplify() for v in vec)
     # check consistency

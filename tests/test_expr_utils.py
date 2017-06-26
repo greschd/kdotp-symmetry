@@ -28,6 +28,16 @@ kx, ky, kz = sp.symbols('kx, ky, kz')
 def test_expr_to_vector(expr, vector, basis):
     assert expr_to_vector(expr, basis=basis) == vector
 
+@pytest.mark.parametrize('expr,basis', [
+    (
+        1 + kx,
+        [sp.Integer(1), kx, kx, kz]
+    ),
+])
+def test_basis_not_independent(expr, basis):
+    with pytest.raises(ValueError):
+        expr_to_vector(expr, basis=basis)
+
 @pytest.mark.parametrize('dim,basis', [
     (0, [sp.Integer(1)]),
     (1, [sp.Integer(1), kx, ky, kz]),
@@ -35,6 +45,10 @@ def test_expr_to_vector(expr, vector, basis):
 ])
 def test_monomial_basis(dim, basis):
     assert monomial_basis(*range(dim + 1)) == basis
+
+def test_monomial_basis_negative_degree():
+    with pytest.raises(ValueError):
+        monomial_basis(1, 2, -3)
 
 @pytest.mark.parametrize('matrix_form,expr1,expr2', [
     (
