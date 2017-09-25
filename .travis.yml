@@ -11,3 +11,11 @@ install:
 script:
     - cd tests
     - py.test
+
+jobs:
+  include:
+    - stage: compliance
+      script: pre-commit run --all-files
+stages:
+  - compliance
+  - test
