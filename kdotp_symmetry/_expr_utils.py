@@ -11,12 +11,10 @@ from fsc.export import export
 
 K_VEC = sp.symbols('kx, ky, kz')
 
+
 def expr_to_vector(
-        expr,
-        basis,
-        *,
-        random_fct=lambda: random.randint(-100, 100)
-    ):
+    expr, basis, *, random_fct=lambda: random.randint(-100, 100)
+):
     dim = len(basis)
     # create random values for the coordinates and evaluate
     # both the basis functions and the expression to generate
@@ -32,7 +30,9 @@ def expr_to_vector(
     else:
         # this could happen if the random_fct is bad, or the 'basis' is not
         # linearly independent
-        raise ValueError('Could not find a sufficient number of linearly independent vectors')
+        raise ValueError(
+            'Could not find a sufficient number of linearly independent vectors'
+        )
 
     res = sp.linsolve((sp.Matrix(A), sp.Matrix(b)), sp.symbols('a b c'))
     assert len(res) == 1
@@ -41,6 +41,7 @@ def expr_to_vector(
     # check consistency
     assert expr.equals(sum(v * b for v, b in zip(vec, basis)))
     return vec
+
 
 @export
 def monomial_basis(*degrees):
@@ -62,10 +63,10 @@ def monomial_basis(*degrees):
     for d in sorted(degrees):
         monomial_tuples = combinations_with_replacement(K_VEC, d)
         basis.extend(
-            reduce(operator.mul, m, sp.Integer(1))
-            for m in monomial_tuples
+            reduce(operator.mul, m, sp.Integer(1)) for m in monomial_tuples
         )
     return basis
+
 
 def matrix_to_expr_operator(matrix_form, repr_has_cc=False):
     """Returns a function that operates on expression, corresponding to the given ``matrix_form`` which operates on a vector in real space. ``repr_has_cc`` determines whether the symmetry contains time reversal."""
@@ -76,6 +77,8 @@ def matrix_to_expr_operator(matrix_form, repr_has_cc=False):
     if repr_has_cc:
         k_matrix_form *= -1
     substitution = list(zip(K_VEC, k_matrix_form @ sp.Matrix(K_VEC)))
+
     def operator(expr):
         return expr.subs(substitution, simultaneous=True)
+
     return operator

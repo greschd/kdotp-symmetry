@@ -36,16 +36,20 @@ time_reversal = sr.SymmetryOperation(
     repr_has_cc=True
 )
 
+
 def print_result(order):
     """prints the basis for a given order of k"""
     print('Order:', order)
     for m in kp.symmetric_hamiltonian(
-        c2y, parity, time_reversal,
+        c2y,
+        parity,
+        time_reversal,
         expr_basis=kp.monomial_basis(order),
         repr_basis=basis
     ):
         print(m)
     print()
+
 
 if __name__ == '__main__':
     for i in range(3):

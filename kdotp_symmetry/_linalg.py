@@ -8,6 +8,7 @@ import numpy as np
 
 ZassenhausResult = namedtuple('ZassenhausResult', ['sum', 'intersection'])
 
+
 def zassenhaus(basis_a, basis_b):
     r"""
     Given two bases ``basis_a`` and ``basis_b`` of vector spaces :math:`U, W \subseteq V`, computes bases of :math:`U + W` and :math:`U \cap W` using the Zassenhaus algorithm.
@@ -34,6 +35,7 @@ def zassenhaus(basis_a, basis_b):
         # The length of the pivot table is used to get rid of all-zero rows
         int_basis = mat[idx:len(pivot), dim:].tolist()
         return ZassenhausResult(sum=plus_basis, intersection=int_basis)
+
 
 def intersection_basis(*bases):
     r"""

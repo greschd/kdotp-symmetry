@@ -1,7 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from ._version import __version__
+__version__ = '0.0.0b2'
 
 from ._expr_utils import *
 from ._repr_utils import *

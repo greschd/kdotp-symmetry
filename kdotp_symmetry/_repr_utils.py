@@ -4,11 +4,13 @@
 import sympy as sp
 from fsc.export import export
 
+
 def frobenius_product(A, B):
     r"""
     Returns the Frobenius scalar product <A, B> = Tr(A^\dagger B) for two matrices.
     """
     return (A.H @ B).trace().simplify()
+
 
 @export
 def hermitian_basis(dim):
@@ -60,6 +62,7 @@ def hermitian_basis(dim):
 
     return basis
 
+
 def _assert_orthogonal(basis):
     """Check orthogonality for a given ``basis``."""
     for i, bi in enumerate(basis):
@@ -69,22 +72,31 @@ def _assert_orthogonal(basis):
             else:
                 assert frobenius_product(bi, bj) == 0
 
+
 def hermitian_to_vector(matrix, basis):
     """
     Returns a the vector representing the ``matrix`` w.r.t. the given *orthonormal* ``basis``.
     """
     _assert_orthogonal(basis)
-    vec = tuple(frobenius_product(matrix, b) / frobenius_product(b, b) for b in basis)
+    vec = tuple(
+        frobenius_product(matrix, b) / frobenius_product(b, b) for b in basis
+    )
     vec = tuple(v.nsimplify() for v in vec)
     # check consistency
-    assert matrix.equals(sum((v * b for v, b in zip(vec, basis)), sp.zeros(*matrix.shape)))
+    assert matrix.equals(
+        sum((v * b for v, b in zip(vec, basis)), sp.zeros(*matrix.shape))
+    )
     return vec
+
 
 def repr_to_matrix_operator(matrix_representation, complex_conjugate=False):
     matrix_representation = sp.Matrix(matrix_representation)
+
     def operator(matrix):
         if complex_conjugate:
-            return matrix_representation @  matrix.conjugate() @ matrix_representation.H
+            return matrix_representation @ matrix.conjugate(
+            ) @ matrix_representation.H
         else:
-            return matrix_representation @  matrix @ matrix_representation.H
+            return matrix_representation @ matrix @ matrix_representation.H
+
     return operator

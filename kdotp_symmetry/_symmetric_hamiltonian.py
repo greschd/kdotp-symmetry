@@ -14,6 +14,7 @@ from ._repr_utils import hermitian_to_vector, hermitian_basis, repr_to_matrix_op
 from ._linalg import intersection_basis
 from ._to_matrix import to_matrix
 
+
 @export
 def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
     """
@@ -44,15 +45,18 @@ def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
     repr_dim = len(repr_basis)
     full_dim = expr_dim * repr_dim
     full_basis = [
-        sp.Matrix(x) for x in
-        np.outer(expr_basis, repr_basis).reshape(full_dim, repr_matrix_size, repr_matrix_size).tolist()
+        sp.Matrix(x)
+        for x in np.outer(expr_basis, repr_basis)
+        .reshape(full_dim, repr_matrix_size, repr_matrix_size).tolist()
     ]
 
     invariant_bases = []
     for op in symmetry_operations:
         # create the matrix form of the two operators
         expr_mat = to_matrix(
-            operator=matrix_to_expr_operator(op.rotation_matrix, repr_has_cc=op.repr.has_cc),
+            operator=matrix_to_expr_operator(
+                op.rotation_matrix, repr_has_cc=op.repr.has_cc
+            ),
             basis=expr_basis,
             to_vector_fct=expr_to_vector
         )
@@ -74,9 +78,11 @@ def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
     basis_vectors_expanded = []
     for vec in basis_vectors:
         basis_vectors_expanded.append(
-            sum((v * b for v, b in zip(vec, full_basis)), sp.zeros(repr_matrix_size))
+            sum((v * b for v, b in zip(vec, full_basis)),
+                sp.zeros(repr_matrix_size))
         )
     return basis_vectors_expanded
+
 
 def _numeric_nullspace_dim(mat):
     mat_numeric = np.array(mat.evalf().tolist(), dtype=complex)
