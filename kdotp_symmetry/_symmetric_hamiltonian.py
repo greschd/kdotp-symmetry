@@ -1,7 +1,6 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from collections import namedtuple
+"""
+Defines functions to construct the basis of the symmetry-constrained Hamiltonian.
+"""
 
 import sympy as sp
 from sympy.physics.quantum import TensorProduct
@@ -9,7 +8,7 @@ import numpy as np
 import scipy.linalg as la
 from fsc.export import export
 
-from ._expr_utils import expr_to_vector, monomial_basis, matrix_to_expr_operator
+from ._expr_utils import expr_to_vector, matrix_to_expr_operator
 from ._repr_utils import hermitian_to_vector, hermitian_basis, repr_to_matrix_operator
 from ._linalg import intersection_basis
 from ._to_matrix import to_matrix
@@ -17,7 +16,7 @@ from ._to_matrix import to_matrix
 
 @export
 def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
-    """
+    r"""
     Calculates the basis of the symmetric Hamiltonian for a given set of symmetry operations.
 
     :param symmetry_operations: The symmetry operations that the Hamiltonian should respect.
@@ -51,17 +50,17 @@ def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
     ]
 
     invariant_bases = []
-    for op in symmetry_operations:
+    for sym_op in symmetry_operations:
         # create the matrix form of the two operators
         expr_mat = to_matrix(
             operator=matrix_to_expr_operator(
-                op.rotation_matrix, repr_has_cc=op.repr.has_cc
+                sym_op.rotation_matrix, repr_has_cc=sym_op.repr.has_cc
             ),
             basis=expr_basis,
             to_vector_fct=expr_to_vector
         )
         repr_mat = to_matrix(
-            operator=repr_to_matrix_operator(*op.repr),
+            operator=repr_to_matrix_operator(*sym_op.repr),
             basis=repr_basis,
             to_vector_fct=hermitian_to_vector
         )
@@ -85,6 +84,7 @@ def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
 
 
 def _numeric_nullspace_dim(mat):
+    """Numerically computes the nullspace dimension of a matrix."""
     mat_numeric = np.array(mat.evalf().tolist(), dtype=complex)
     eigenvals = la.eigvals(mat_numeric)
     return np.sum(np.isclose(eigenvals, np.zeros_like(eigenvals)))

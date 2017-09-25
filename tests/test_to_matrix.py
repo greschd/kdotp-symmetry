@@ -1,13 +1,13 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""
+Tests for turning hermitian matrices and algebraic expressions into matrix form.
+"""
 
 import pytest
 import sympy as sp
 
 from kdotp_symmetry._to_matrix import to_matrix
 
-from kdotp_symmetry._expr_utils import K_VEC, expr_to_vector, monomial_basis, matrix_to_expr_operator
-
+from kdotp_symmetry._expr_utils import expr_to_vector, monomial_basis, matrix_to_expr_operator
 from kdotp_symmetry._repr_utils import hermitian_to_vector, hermitian_basis, repr_to_matrix_operator
 
 
@@ -72,4 +72,7 @@ from kdotp_symmetry._repr_utils import hermitian_to_vector, hermitian_basis, rep
     )]
 )
 def test_to_matrix(operator, basis, to_vector_fct, result):
+    """
+    Test that turning a matrix / expression into matrix form gives the desired result.
+    """
     assert to_matrix(operator, basis, to_vector_fct) == result

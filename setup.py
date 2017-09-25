@@ -2,14 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import re
-try:
-    from setuptools import setup
-except:
-    from distutils.core import setup
-
 import sys
 if sys.version_info < (3, 5):
     raise 'must use Python version 3.5 or higher'
+
+from setuptools import setup
 
 README = """A tool for calculating the general form of a k.p Hamiltonian under given symmetry constraints."""
 
@@ -28,7 +25,7 @@ setup(
     install_requires=[
         'sympy', 'numpy', 'scipy', 'fsc.export', 'symmetry-representation'
     ],
-    extras_require={'dev': ['pytest', 'yapf', 'pre-commit']},
+    extras_require={'dev': ['pytest', 'yapf', 'pre-commit', 'prospector']},
     long_description=README,
     classifiers=[
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',

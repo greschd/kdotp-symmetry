@@ -1,5 +1,6 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""
+Defines the functions to calculate the basis of an intersection of vector spaces.
+"""
 
 from collections import namedtuple
 

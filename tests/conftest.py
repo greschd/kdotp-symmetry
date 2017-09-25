@@ -1,10 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""pytest configuration for kdotp-symmetry tests."""
+# pylint: disable=unused-argument,redefined-outer-name,protected-access
 
 import json
 import pytest
-
-#--------------------------FIXTURES-------------------------------------#
 
 
 @pytest.fixture

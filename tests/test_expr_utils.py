@@ -73,6 +73,6 @@ def test_matrix_to_expr_operator(matrix_form, expr1, expr2):
                                            2 + kz**2 + kz * kx + kz * ky)]
 )
 def test_matrix_to_expr_operator_double_eval(matrix_form, expr1, expr2):
-    op = matrix_to_expr_operator(matrix_form)
-    assert sp.simplify(sp.Eq(op(expr1), expr2))
-    assert sp.simplify(sp.Eq(op(expr1), expr2))
+    expr_operator = matrix_to_expr_operator(matrix_form)
+    assert sp.simplify(sp.Eq(expr_operator(expr1), expr2))
+    assert sp.simplify(sp.Eq(expr_operator(expr1), expr2))

@@ -1,5 +1,6 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""
+Utilities for handling algebraic expressions, such as turning them to vector or matrix form.
+"""
 
 import random
 import operator
@@ -15,12 +16,23 @@ K_VEC = sp.symbols('kx, ky, kz')
 def expr_to_vector(
     expr, basis, *, random_fct=lambda: random.randint(-100, 100)
 ):
+    """
+    Converts an algebraic (sympy) expression into vector form.
+
+    :param expr: Algebraic expression
+    :type expr: sympy.Expr
+
+    :param expr: Basis of the vector space, w.r.t. which the vector will be expressed.
+    :type expr: list[sympy.Expr]
+
+    :param random_fct: Function creating random numbers on which the expression will be evaluated.
+    """
     dim = len(basis)
     # create random values for the coordinates and evaluate
     # both the basis functions and the expression to generate
     # the linear equation to be solved
     A = []
-    b = []
+    b = []  # pylint: disable=invalid-name
     for _ in range(2 * dim):
         if sp.Matrix(A).rank() >= len(basis):
             break
@@ -57,11 +69,11 @@ def monomial_basis(*degrees):
         >>> kp.monomial_basis(*range(3))
         [1, kx, ky, kz, kx**2, kx*ky, kx*kz, ky**2, ky*kz, kz**2]
     """
-    if any(p < 0 for p in degrees):
+    if any(deg < 0 for deg in degrees):
         raise ValueError('Degrees must be non-negative integers')
     basis = []
-    for d in sorted(degrees):
-        monomial_tuples = combinations_with_replacement(K_VEC, d)
+    for deg in sorted(degrees):
+        monomial_tuples = combinations_with_replacement(K_VEC, deg)
         basis.extend(
             reduce(operator.mul, m, sp.Integer(1)) for m in monomial_tuples
         )
@@ -78,7 +90,7 @@ def matrix_to_expr_operator(matrix_form, repr_has_cc=False):
         k_matrix_form *= -1
     substitution = list(zip(K_VEC, k_matrix_form @ sp.Matrix(K_VEC)))
 
-    def operator(expr):
+    def expr_operator(expr):
         return expr.subs(substitution, simultaneous=True)
 
-    return operator
+    return expr_operator

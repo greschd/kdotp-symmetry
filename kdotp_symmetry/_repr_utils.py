@@ -1,5 +1,6 @@
-# -*- coding: utf-8 -*-
-#!/usr/bin/env python
+"""
+Utilities for handling symmetry representations, such as converting them to matrix form.
+"""
 
 import sympy as sp
 from fsc.export import export
@@ -52,8 +53,8 @@ def hermitian_basis(dim):
 
             # imag
             mat = sp.zeros(dim)
-            mat[i, j] = -sp.numbers.I
-            mat[j, i] = sp.numbers.I
+            mat[i, j] = -sp.numbers.I  # pylint: disable=no-member
+            mat[j, i] = sp.numbers.I  # pylint: disable=no-member
             basis.append(mat)
 
     # check ONB property
@@ -65,12 +66,12 @@ def hermitian_basis(dim):
 
 def _assert_orthogonal(basis):
     """Check orthogonality for a given ``basis``."""
-    for i, bi in enumerate(basis):
-        for j, bj in enumerate(basis):
+    for i, b_i in enumerate(basis):
+        for j, b_j in enumerate(basis):
             if i == j:
-                assert frobenius_product(bi, bj) != 0
+                assert frobenius_product(b_i, b_j) != 0
             else:
-                assert frobenius_product(bi, bj) == 0
+                assert frobenius_product(b_i, b_j) == 0
 
 
 def hermitian_to_vector(matrix, basis):
@@ -90,13 +91,21 @@ def hermitian_to_vector(matrix, basis):
 
 
 def repr_to_matrix_operator(matrix_representation, complex_conjugate=False):
+    """
+    Converts a symmetry representation into the corresponding matrix operator.
+
+    :param matrix_representation: Real-space matrix form of the symmetry representation.
+    :type matrix_representation: sympy.Matrix
+
+    :param complex_conjugate: Specifies whether the representation contains complex conjugation.
+    :type complex_conjugate: bool
+    """
     matrix_representation = sp.Matrix(matrix_representation)
 
     def operator(matrix):
         if complex_conjugate:
             return matrix_representation @ matrix.conjugate(
             ) @ matrix_representation.H
-        else:
-            return matrix_representation @ matrix @ matrix_representation.H
+        return matrix_representation @ matrix @ matrix_representation.H
 
     return operator
