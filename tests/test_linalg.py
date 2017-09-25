@@ -1,5 +1,6 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""
+Tests for the Zassenhaus algorithm and basis intersection.
+"""
 
 import pytest
 from kdotp_symmetry._linalg import zassenhaus, intersection_basis

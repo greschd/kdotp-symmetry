@@ -15,7 +15,7 @@ def test_name(request):
 def compare_data(request, test_name, scope="session"):
     """Returns a function which either saves some data to a file or (if that file exists already) compares it to pre-existing data using a given comparison function."""
 
-    def inner(compare_fct, data, tag=None):
+    def inner(compare_fct, data, tag=None):  # pylint: disable=missing-docstring
         full_name = test_name + (tag or '')
 
         # get rid of json-specific quirks
@@ -35,4 +35,5 @@ def compare_data(request, test_name, scope="session"):
 
 @pytest.fixture
 def compare_equal(compare_data):
+    """Returns a function which compares data for equality with pre-existing data."""
     return lambda data, tag=None: compare_data(lambda x, y: x == y, data, tag)

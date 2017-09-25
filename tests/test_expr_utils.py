@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""Tests for utilities handling algebraic expressions."""
 
 import pytest
 import sympy as sp

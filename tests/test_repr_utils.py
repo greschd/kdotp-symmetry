@@ -1,5 +1,6 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""
+Tests for utilities handling matrix representations of symmetries.
+"""
 
 import pytest
 import sympy as sp

@@ -1,5 +1,6 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""
+pip install -e .[dev]
+"""
 
 import re
 import sys
