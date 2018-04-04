@@ -51,7 +51,11 @@ def expr_to_vector(
     vec = next(iter(res))
     vec = tuple(v.nsimplify() for v in vec)
     # check consistency
-    assert expr.equals(sum(v * b for v, b in zip(vec, basis)))
+    assert expr.equals(
+        sum(v * b for v, b in zip(vec, basis))
+    ), "Vector {vec} in basis {basis} does not match expression {expr}".format(
+        vec=vec, basis=basis, expr=expr
+    )
     return vec
 
 
