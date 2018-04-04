@@ -84,9 +84,13 @@ def hermitian_to_vector(matrix, basis):
     )
     vec = tuple(v.nsimplify() for v in vec)
     # check consistency
-    assert matrix.equals(
+    if not matrix.equals(
         sum((v * b for v, b in zip(vec, basis)), sp.zeros(*matrix.shape))
-    )
+    ):
+        raise ValueError(
+            'Vector {vec} in basis {basis} does not match matrix {matrix}'.
+            format(vec=vec, basis=basis, matrix=matrix)
+        )
     return vec
 
 

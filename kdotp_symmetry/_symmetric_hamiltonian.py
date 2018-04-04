@@ -71,7 +71,11 @@ def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
         # get Eig(F \ocross G, 1) basis
         mat = full_mat - sp.eye(full_dim)
         curr_basis = np.array(mat.nullspace(simplify=sp.nsimplify)).tolist()
-        assert len(curr_basis) == _numeric_nullspace_dim(mat)
+        if len(curr_basis) != _numeric_nullspace_dim(mat):
+            raise ValueError(
+                'Analytic and numeric dimensions of the nullspace of the matrix {mat} do not match'.
+                format(mat=mat)
+            )
         invariant_bases.append(curr_basis)
 
     basis_vectors = intersection_basis(*invariant_bases)

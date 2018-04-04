@@ -47,15 +47,19 @@ def expr_to_vector(
         )
 
     res = sp.linsolve((sp.Matrix(A), sp.Matrix(b)), sp.symbols('a b c'))
-    assert len(res) == 1
+    if len(res) != 1:
+        raise ValueError(
+            'Invalid result {res} when trying to match expression {expr} to basis {basis}.'.
+            format(res=res, expr=expr, basis=basis)
+        )
     vec = next(iter(res))
     vec = tuple(v.nsimplify() for v in vec)
     # check consistency
-    assert expr.equals(
-        sum(v * b for v, b in zip(vec, basis))
-    ), "Vector {vec} in basis {basis} does not match expression {expr}".format(
-        vec=vec, basis=basis, expr=expr
-    )
+    if not expr.equals(sum(v * b for v, b in zip(vec, basis))):
+        raise ValueError(
+            "Vector {vec} in basis {basis} does not match expression {expr}".
+            format(vec=vec, basis=basis, expr=expr)
+        )
     return vec
 
 
