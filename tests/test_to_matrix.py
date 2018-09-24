@@ -14,7 +14,8 @@ from kdotp_symmetry._repr_utils import hermitian_to_vector, hermitian_basis, rep
 @pytest.mark.parametrize(
     'operator,basis,to_vector_fct,result', [(
         matrix_to_expr_operator([[0, 1, 0], [1, 0, 0], [0, 0, -1]]),
-        monomial_basis(*range(3)), expr_to_vector, sp.Matrix([
+        monomial_basis(*range(3)), expr_to_vector,
+        sp.Matrix([
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
             [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -32,7 +33,8 @@ from kdotp_symmetry._repr_utils import hermitian_to_vector, hermitian_basis, rep
         sp.Matrix([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, -1]])
     ), (
         repr_to_matrix_operator(sp.Matrix([[0, 1], [1, 0]])),
-        hermitian_basis(2), hermitian_to_vector, sp.Matrix([
+        hermitian_basis(2), hermitian_to_vector,
+        sp.Matrix([
             [0, 1, 0, 0],
             [1, 0, 0, 0],
             [0, 0, 1, 0],
@@ -41,7 +43,8 @@ from kdotp_symmetry._repr_utils import hermitian_to_vector, hermitian_basis, rep
     ), (
         repr_to_matrix_operator(
             sp.Matrix([[0, 1], [1, 0]]), complex_conjugate=True
-        ), hermitian_basis(2), hermitian_to_vector, sp.Matrix([
+        ), hermitian_basis(2), hermitian_to_vector,
+        sp.Matrix([
             [0, 1, 0, 0],
             [1, 0, 0, 0],
             [0, 0, 1, 0],
@@ -49,7 +52,8 @@ from kdotp_symmetry._repr_utils import hermitian_to_vector, hermitian_basis, rep
         ])
     ), (
         repr_to_matrix_operator(sp.eye(2), complex_conjugate=True),
-        hermitian_basis(2), hermitian_to_vector, sp.Matrix([
+        hermitian_basis(2), hermitian_to_vector,
+        sp.Matrix([
             [1, 0, 0, 0],
             [0, 1, 0, 0],
             [0, 0, 1, 0],
@@ -62,7 +66,8 @@ from kdotp_symmetry._repr_utils import hermitian_to_vector, hermitian_basis, rep
                 sp.exp(sp.I * sp.pi * sp.Rational(2, 3))
             ),
             complex_conjugate=False
-        ), hermitian_basis(2), hermitian_to_vector, sp.Matrix([
+        ), hermitian_basis(2), hermitian_to_vector,
+        sp.Matrix([
             [1, 0, 0, 0],
             [0, 1, 0, 0],
             [0, 0, -sp.Rational(1, 2),

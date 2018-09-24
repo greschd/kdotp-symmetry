@@ -14,8 +14,8 @@ kx, ky, kz = sp.symbols('kx, ky, kz')
         kx * ky + kx * ky * kz, (0, 0, 0, 0, 1, 0, 0, 1),
         [sp.Integer(1), kx, ky, kz, kx * ky, kx * kz, ky * kz, kx * ky * kz]
     ), (
-        1 + sp.Rational(1, 4) * ky, (1, 0, 0.25, 0),
-        [sp.Integer(1), kx, ky, kz]
+        1 + sp.Rational(1, 4) * ky,
+        (1, 0, 0.25, 0), [sp.Integer(1), kx, ky, kz]
     )]
 )
 def test_expr_to_vector(expr, vector, basis):
@@ -67,9 +67,9 @@ def test_matrix_to_expr_operator(matrix_form, expr1, expr2):
     [([[0, 1, 0], [1, 0, 0], [0, 0, -1]], 2 + kx**2 + kx * ky + kx * kz,
       2 + ky**2 + kx * ky - ky * kz),
      ([[0, 1, 0], [1, 0, 0], [0, 0, -1]], -1 + kx**2 * ky + kx - kx * kz**2,
-      -1 + ky**2 * kx + ky - ky * kz**2), ([[0, 1, 0], [0, 0, 1], [1, 0, 0]],
-                                           2 + kx**2 + kx * ky + kx * kz,
-                                           2 + kz**2 + kz * kx + kz * ky)]
+      -1 + ky**2 * kx + ky - ky * kz**2),
+     ([[0, 1, 0], [0, 0, 1], [1, 0, 0]], 2 + kx**2 + kx * ky + kx * kz,
+      2 + kz**2 + kz * kx + kz * ky)]
 )
 def test_matrix_to_expr_operator_double_eval(matrix_form, expr1, expr2):
     expr_operator = matrix_to_expr_operator(matrix_form)
