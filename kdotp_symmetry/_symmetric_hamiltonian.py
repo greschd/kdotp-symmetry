@@ -44,8 +44,8 @@ def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
     repr_dim = len(repr_basis)
     full_dim = expr_dim * repr_dim
     full_basis = [
-        sp.Matrix(x) for x in np.outer(expr_basis, repr_basis)
-        .reshape(full_dim, repr_matrix_size, repr_matrix_size).tolist()
+        sp.Matrix(x) for x in np.outer(expr_basis, repr_basis).
+        reshape(full_dim, repr_matrix_size, repr_matrix_size).tolist()
     ]
 
     invariant_bases = []
@@ -73,8 +73,8 @@ def symmetric_hamiltonian(*symmetry_operations, expr_basis, repr_basis='auto'):
         curr_basis = np.array(mat.nullspace(simplify=sp.nsimplify)).tolist()
         if len(curr_basis) != _numeric_nullspace_dim(mat):
             raise ValueError(
-                'Analytic and numeric dimensions of the nullspace of the matrix {mat} do not match'.
-                format(mat=mat)
+                'Analytic and numeric dimensions of the nullspace of the matrix {mat} do not match'
+                .format(mat=mat)
             )
         invariant_bases.append(curr_basis)
 

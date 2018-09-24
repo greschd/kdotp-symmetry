@@ -17,6 +17,9 @@ from kdotp_symmetry._linalg import zassenhaus, intersection_basis
     ]
 )
 def test_zassenhaus(input_bases, output_bases):
+    """
+    Test the Zassenhaus algorithm.
+    """
     assert zassenhaus(*input_bases) == output_bases
 
 
@@ -37,6 +40,9 @@ def test_zassenhaus(input_bases, output_bases):
     ]
 )
 def test_zassenhaus_inconsistent_dim(input_bases):
+    """
+    Test that the Zassenhaus algorithm raises an error when the input has inconsistent dimension.
+    """
     with pytest.raises(ValueError):
         zassenhaus(*input_bases)
 
@@ -51,4 +57,7 @@ def test_zassenhaus_inconsistent_dim(input_bases):
     ]
 )
 def test_intersection_basis(input_bases, output_basis):
+    """
+    Test the basis intersection algorithm.
+    """
     assert intersection_basis(*input_bases) == output_basis

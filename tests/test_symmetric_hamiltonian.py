@@ -77,6 +77,9 @@ PAULI_VEC = [sp.eye(2), *(sm.msigma(i) for i in range(1, 4))]
 def test_symmetric_hamiltonian(
     symmetry_operations, expr_basis, repr_basis, result
 ):
+    """
+    Test the method for calculating the symmetric Hamiltonian.
+    """
     assert kp.symmetric_hamiltonian(
         *symmetry_operations, expr_basis=expr_basis, repr_basis=repr_basis
     ) == result

@@ -15,7 +15,7 @@ def test_name(request):
 def compare_data(request, test_name, scope="session"):
     """Returns a function which either saves some data to a file or (if that file exists already) compares it to pre-existing data using a given comparison function."""
 
-    def inner(compare_fct, data, tag=None):  # pylint: disable=missing-docstring
+    def inner(compare_fct, data, tag=None):
         full_name = test_name + (tag or '')
 
         # get rid of json-specific quirks
