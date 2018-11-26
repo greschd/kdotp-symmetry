@@ -29,7 +29,7 @@ setup(
     extras_require={'dev': ['pytest', 'yapf', 'pre-commit', 'prospector']},
     long_description=README,
     classifiers=[
-        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+        'License :: OSI Approved :: Apache Software License',
         'Natural Language :: English', 'Operating System :: Unix',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
