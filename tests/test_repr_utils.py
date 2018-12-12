@@ -30,26 +30,28 @@ def test_frobenius_product(A, B):
 
 
 @pytest.mark.parametrize(
-    'dim,result', [(0, []), (1, [sp.Matrix([[1]])]), (
-        2, [
-            sp.Matrix([[1, 0], [0, 0]]),
-            sp.Matrix([[0, 0], [0, 1]]),
-            sp.Matrix([[0, 1], [1, 0]]),
-            sp.Matrix([[0, -sp.I], [sp.I, 0]])
-        ]
-    ), (
-        3, [
-            sp.Matrix([[1, 0, 0], [0, 0, 0], [0, 0, 0]]),
-            sp.Matrix([[0, 0, 0], [0, 1, 0], [0, 0, 0]]),
-            sp.Matrix([[0, 0, 0], [0, 0, 0], [0, 0, 1]]),
-            sp.Matrix([[0, 1, 0], [1, 0, 0], [0, 0, 0]]),
-            sp.Matrix([[0, -sp.I, 0], [sp.I, 0, 0], [0, 0, 0]]),
-            sp.Matrix([[0, 0, 1], [0, 0, 0], [1, 0, 0]]),
-            sp.Matrix([[0, 0, -sp.I], [0, 0, 0], [sp.I, 0, 0]]),
-            sp.Matrix([[0, 0, 0], [0, 0, 1], [0, 1, 0]]),
-            sp.Matrix([[0, 0, 0], [0, 0, -sp.I], [0, sp.I, 0]]),
-        ]
-    )]
+    'dim,result', [(0, []), (1, [sp.Matrix([[1]])]),
+                   (
+                       2, [
+                           sp.Matrix([[1, 0], [0, 0]]),
+                           sp.Matrix([[0, 0], [0, 1]]),
+                           sp.Matrix([[0, 1], [1, 0]]),
+                           sp.Matrix([[0, -sp.I], [sp.I, 0]])
+                       ]
+                   ),
+                   (
+                       3, [
+                           sp.Matrix([[1, 0, 0], [0, 0, 0], [0, 0, 0]]),
+                           sp.Matrix([[0, 0, 0], [0, 1, 0], [0, 0, 0]]),
+                           sp.Matrix([[0, 0, 0], [0, 0, 0], [0, 0, 1]]),
+                           sp.Matrix([[0, 1, 0], [1, 0, 0], [0, 0, 0]]),
+                           sp.Matrix([[0, -sp.I, 0], [sp.I, 0, 0], [0, 0, 0]]),
+                           sp.Matrix([[0, 0, 1], [0, 0, 0], [1, 0, 0]]),
+                           sp.Matrix([[0, 0, -sp.I], [0, 0, 0], [sp.I, 0, 0]]),
+                           sp.Matrix([[0, 0, 0], [0, 0, 1], [0, 1, 0]]),
+                           sp.Matrix([[0, 0, 0], [0, 0, -sp.I], [0, sp.I, 0]]),
+                       ]
+                   )]
 )
 def test_hermitian_basis(dim, result):
     """
@@ -64,10 +66,12 @@ def test_hermitian_basis(dim, result):
     'mat,vec,basis', [(
         sp.Matrix([[0, 1 + sp.I], [1 - sp.I, 0]]),
         (0, 0, 1, -1), hermitian_basis(2)
-    ), (
-        sp.Matrix([[2, sp.sqrt(2) + sp.I], [sp.sqrt(2) - sp.I, -3]]),
-        (2, -3, sp.sqrt(2), -1), hermitian_basis(2)
-    )]
+    ),
+                      (
+                          sp.Matrix([[2, sp.sqrt(2) + sp.I],
+                                     [sp.sqrt(2) - sp.I, -3]]),
+                          (2, -3, sp.sqrt(2), -1), hermitian_basis(2)
+                      )]
 )
 def test_hermitian_to_vector(mat, vec, basis):
     """

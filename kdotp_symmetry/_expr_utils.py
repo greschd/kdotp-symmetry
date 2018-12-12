@@ -16,7 +16,11 @@ K_VEC = sp.symbols('kx, ky, kz')
 
 
 def expr_to_vector(
-    expr, basis, *, random_fct=lambda: random.randint(-100, 100), **kwargs
+    expr,
+    basis,
+    *,
+    random_fct=lambda: random.randint(-100, 100),
+    **kwargs  # pylint: disable=unused-argument
 ):
     """
     Converts an algebraic (sympy) expression into vector form.

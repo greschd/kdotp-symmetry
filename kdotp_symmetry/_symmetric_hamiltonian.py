@@ -58,8 +58,8 @@ def symmetric_hamiltonian(
     repr_dim = len(repr_basis)
     full_dim = expr_dim * repr_dim
     full_basis = [
-        sp.Matrix(x) for x in np.outer(expr_basis, repr_basis)
-        .reshape(full_dim, repr_matrix_size, repr_matrix_size).tolist()
+        sp.Matrix(x) for x in np.outer(expr_basis, repr_basis).
+        reshape(full_dim, repr_matrix_size, repr_matrix_size).tolist()
     ]
 
     invariant_bases = []
