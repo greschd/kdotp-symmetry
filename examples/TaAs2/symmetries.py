@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
+
+# © 2017-2018, ETH Zurich, Institut für Theoretische Physik
 # Author:  Dominik Gresch <greschd@gmx.ch>
-# Date:    26.01.2017 22:40:33 CET
-# File:    symmetries.py
 
 import sympy as sp
 from sympy.core.numbers import I

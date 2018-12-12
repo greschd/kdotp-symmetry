@@ -1,3 +1,5 @@
+# © 2017-2018, ETH Zurich, Institut für Theoretische Physik
+# Author:  Dominik Gresch <greschd@gmx.ch>
 """pytest configuration for kdotp-symmetry tests."""
 # pylint: disable=unused-argument,redefined-outer-name,protected-access
 

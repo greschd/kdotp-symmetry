@@ -1,5 +1,7 @@
+# © 2017-2018, ETH Zurich, Institut für Theoretische Physik
+# Author:  Dominik Gresch <greschd@gmx.ch>
 """
-pip install -e .[dev]
+Usage: pip install -e .[dev]
 """
 
 import re

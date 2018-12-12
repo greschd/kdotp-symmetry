@@ -1,3 +1,5 @@
+# © 2017-2018, ETH Zurich, Institut für Theoretische Physik
+# Author:  Dominik Gresch <greschd@gmx.ch>
 """
 Utilities for handling symmetry representations, such as converting them to matrix form.
 """
@@ -38,49 +40,56 @@ def hermitian_basis(dim):
     basis = []
     # diagonal entries
     for i in range(dim):
-        mat = sp.zeros(dim)
-        mat[i, i] = 1
-        basis.append(mat)
+        basis.append(sp.SparseMatrix(dim, dim, {(i, i): 1}))
 
     # off-diagonal entries
     for i in range(dim):
         for j in range(i + 1, dim):
             # real
-            mat = sp.zeros(dim)
-            mat[i, j] = 1
-            mat[j, i] = 1
-            basis.append(mat)
+            basis.append(sp.SparseMatrix(dim, dim, {(i, j): 1, (j, i): 1}))
 
             # imag
-            mat = sp.zeros(dim)
-            mat[i, j] = -sp.numbers.I  # pylint: disable=no-member
-            mat[j, i] = sp.numbers.I  # pylint: disable=no-member
-            basis.append(mat)
+            basis.append(
+                sp.SparseMatrix(dim, dim, {(i, j): -sp.I,
+                                           (j, i): sp.I})
+            )
 
-    # check ONB property
     assert len(basis) == dim**2
-    _assert_orthogonal(basis)
 
     return basis
 
 
-def _assert_orthogonal(basis):
+def check_orthogonal(basis):
     """Check orthogonality for a given ``basis``."""
     for i, b_i in enumerate(basis):
-        for j, b_j in enumerate(basis):
+        for offset, b_j in enumerate(basis[i:]):
+            j = i + offset
+            frob_product = frobenius_product(b_i, b_j)
             if i == j:
-                assert frobenius_product(b_i, b_j) != 0
+                if frob_product != 1:
+                    raise ValueError(
+                        'Basis element {} has norm {}, not one.'.format(
+                            i, frob_product
+                        )
+                    )
             else:
-                assert frobenius_product(b_i, b_j) == 0
+                if frob_product != 0:
+                    raise ValueError(
+                        'Basis elements {}, {} are not orthogonal.'.format(
+                            i, j
+                        )
+                    )
 
 
-def hermitian_to_vector(matrix, basis):
+def hermitian_to_vector(matrix, basis, basis_norm_squares=None):
     """
-    Returns a the vector representing the ``matrix`` w.r.t. the given *orthonormal* ``basis``.
+    Returns a the vector representing the ``matrix`` w.r.t. the given *orthogonal* ``basis``.
     """
-    _assert_orthogonal(basis)
     vec = tuple(
-        frobenius_product(matrix, b) / frobenius_product(b, b) for b in basis
+        frobenius_product(matrix, b) / norm_sq for b, norm_sq in zip(
+            basis, basis_norm_squares
+            or [frobenius_product(b, b) for b in basis]
+        )
     )
     vec = tuple(v.nsimplify() for v in vec)
     # check consistency

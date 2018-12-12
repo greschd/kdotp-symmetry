@@ -1,3 +1,5 @@
+# © 2017-2018, ETH Zurich, Institut für Theoretische Physik
+# Author:  Dominik Gresch <greschd@gmx.ch>
 """
 Utilities for handling algebraic expressions, such as turning them to vector or matrix form.
 """
@@ -14,7 +16,7 @@ K_VEC = sp.symbols('kx, ky, kz')
 
 
 def expr_to_vector(
-    expr, basis, *, random_fct=lambda: random.randint(-100, 100)
+    expr, basis, *, random_fct=lambda: random.randint(-100, 100), **kwargs
 ):
     """
     Converts an algebraic (sympy) expression into vector form.
