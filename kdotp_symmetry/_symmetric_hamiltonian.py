@@ -14,6 +14,7 @@ from ._expr_utils import expr_to_vector, matrix_to_expr_operator
 from ._repr_utils import hermitian_to_vector, hermitian_basis, repr_to_matrix_operator, check_orthogonal, frobenius_product
 from ._linalg import intersection_basis
 from ._to_matrix import to_matrix
+from ._logging_setup import LOGGER
 
 
 @export
@@ -56,6 +57,7 @@ def symmetric_hamiltonian(
         check_orthogonal(repr_basis)
 
     repr_dim = len(repr_basis)
+    repr_basis_norm_squares = [frobenius_product(b, b) for b in repr_basis]
     full_dim = expr_dim * repr_dim
     full_basis = [
         sp.Matrix(x) for x in np.outer(expr_basis, repr_basis).
@@ -64,8 +66,7 @@ def symmetric_hamiltonian(
 
     invariant_bases = []
     for sym_op in symmetry_operations:
-        # create the matrix form of the two operators
-        print('Calculating matrix form of expression.')
+        LOGGER.info('Calculating matrix form of expression.')
         expr_mat = to_matrix(
             operator=matrix_to_expr_operator(
                 sym_op.rotation_matrix, repr_has_cc=sym_op.repr.has_cc
@@ -73,26 +74,23 @@ def symmetric_hamiltonian(
             basis=expr_basis,
             to_vector_fct=expr_to_vector
         )
-        print('Calculating matrix form of representation.')
+        LOGGER.info('Calculating matrix form of representation.')
         repr_mat = to_matrix(
             operator=repr_to_matrix_operator(
                 sym_op.repr.matrix, complex_conjugate=sym_op.repr.has_cc
             ),
             basis=repr_basis,
             to_vector_fct=hermitian_to_vector,
-            to_vector_kwargs=dict(
-                basis_norm_squares=[
-                    frobenius_product(b, b) for b in repr_basis
-                ]
-            )
+            to_vector_kwargs=dict(basis_norm_squares=repr_basis_norm_squares)
         )
         # outer product
-        print('Calculating outer product.')
+        LOGGER.info('Calculating outer product.')
         full_mat = TensorProduct(expr_mat, repr_mat)
 
         # get Eig(F \ocross G, 1) basis
         mat = full_mat - sp.eye(full_dim)
-        print('Calculating nullspace.')
+        LOGGER.info('Calculating nullspace.')
+        mat.nullspace(simplify=sp.simplify)
         curr_basis = np.array(mat.nullspace(simplify=sp.nsimplify)).tolist()
         if len(curr_basis) != _numeric_nullspace_dim(mat):
             raise ValueError(
@@ -101,9 +99,9 @@ def symmetric_hamiltonian(
             )
         invariant_bases.append(curr_basis)
 
-    print('Calculating basis intersection.')
+    LOGGER.info('Calculating basis intersection.')
     basis_vectors = intersection_basis(*invariant_bases)
-    print('Expanding basis vectors.')
+    LOGGER.info('Expanding basis vectors.')
     basis_vectors_expanded = []
     for vec in basis_vectors:
         basis_vectors_expanded.append(

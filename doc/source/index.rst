@@ -140,6 +140,11 @@ and thus
 In conclusion, the problem of finding the general form of the Hamiltonian is equivalent to calculating this subspace.
 
 
+Limitations
+-----------
+
+
+
 .. toctree::
     :hidden:
 

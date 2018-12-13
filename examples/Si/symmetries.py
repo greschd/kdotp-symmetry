@@ -11,7 +11,8 @@ import kdotp_symmetry as kp
 
 orbitals = [
     sr.Orbital(position=coord, function_string=fct, spin=spin)
-    for spin in (sr.SPIN_UP, sr.SPIN_DOWN) for coord in
+    # for spin in (sr.SPIN_UP, sr.SPIN_DOWN) for coord in
+    for spin in (sr.NO_SPIN, ) for coord in
     (sp.Matrix([sp.Rational(1, 2)] * 3), sp.Matrix([sp.Rational(3, 4)] * 3))
     for fct in sr.WANNIER_ORBITALS['sp3']
 ]
@@ -50,8 +51,6 @@ symmetry_generators = [
     sr.get_time_reversal(orbitals=orbitals, numeric=False)
 ]
 
-print(symmetry_generators)
-
 
 def print_result(order):
     """prints the basis for a given order of k"""
@@ -59,12 +58,12 @@ def print_result(order):
     for m in kp.symmetric_hamiltonian(
         *symmetry_generators,
         expr_basis=kp.monomial_basis(order),
-        repr_basis=kp.hermitian_basis(16)
+        repr_basis=kp.hermitian_basis(len(orbitals))
     ):
         print(m)
     print()
 
 
 if __name__ == '__main__':
-    for i in range(3):
+    for i in range(2):
         print_result(order=i)
