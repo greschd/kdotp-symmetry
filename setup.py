@@ -29,7 +29,12 @@ setup(
         'sympy', 'numpy', 'scipy', 'fsc.export',
         'symmetry-representation>=0.1', 'networkx>=2'
     ],
-    extras_require={'dev': ['pytest', 'yapf', 'pre-commit', 'prospector']},
+    extras_require={
+        'dev': [
+            'pytest', 'yapf', 'pre-commit', 'prospector', 'sphinx',
+            'sphinx_rtd_theme'
+        ]
+    },
     long_description=README,
     classifiers=[
         'License :: OSI Approved :: Apache Software License',

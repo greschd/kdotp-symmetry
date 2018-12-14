@@ -143,10 +143,11 @@ In conclusion, the problem of finding the general form of the Hamiltonian is equ
 Limitations
 -----------
 
-
+The dimension of the vector space :math:`V \otimes W` on which the kdotp-symmetry code operates grows linearly with the number of functions of :math:`\mathbf{k}`, and with the square of the dimension :math:`N` of the Hamiltonian. Since parts of the algorithm (in particular finding the invariant subspace, and the intersection between invariant subspaces) scale cubically in this dimension of :math:`V \otimes W`, the scaling of the entire algorithm is quite bad. In short, the kdotp-symmetry code can be applied only for relatively small Hamiltonian sizes and moderate number of functions of :math:`\mathbf{k}`.
 
 .. toctree::
     :hidden:
+    :maxdepth: 2
 
     Usage and Formalism <self>
     example.rst
