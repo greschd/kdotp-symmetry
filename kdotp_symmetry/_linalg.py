@@ -4,10 +4,12 @@
 Defines the functions to calculate the basis of an intersection of vector spaces.
 """
 
+import enum
 from collections import namedtuple
 
 import sympy as sp
 import numpy as np
+import networkx as nx
 
 ZassenhausResult = namedtuple('ZassenhausResult', ['sum', 'intersection'])
 
@@ -51,3 +53,56 @@ def intersection_basis(*bases):
             break
         current_basis = zassenhaus(current_basis, basis).intersection
     return current_basis
+
+
+class _NodeType(enum.Enum):
+    ROW = enum.auto()
+    COLUMN = enum.auto()
+
+
+def nullspace_blocked(matrix, **kwargs):
+    """
+    Calculate the nullspace of a given matrix. This is functionally equivalent to sympy's ``nullspace`` method, but it first subdivides the matrix into block-diagonal parts if possible.
+
+    Keyword arguments are forwarded to the sympy nullspace method.
+    """
+    n_rows, n_cols = matrix.shape
+    row_nodes = [(_NodeType.ROW, i) for i in range(n_rows)]
+    column_nodes = [(_NodeType.COLUMN, i) for i in range(n_cols)]
+
+    graph = nx.Graph()
+
+    graph.add_nodes_from(row_nodes)
+    graph.add_nodes_from(column_nodes)
+
+    for row_idx in range(n_rows):
+        for column_idx, val in enumerate(matrix.row(row_idx)):
+            if val.is_nonzero:
+                graph.add_edge((_NodeType.ROW, row_idx),
+                               (_NodeType.COLUMN, column_idx))
+
+    nullspace = []
+    components = list(nx.connected_components(graph))
+    for component in components:
+        row_indices = sorted(
+            idx for kind, idx in component if kind is _NodeType.ROW
+        )
+        column_indices = sorted(
+            idx for kind, idx in component if kind is _NodeType.COLUMN
+        )
+        if len(column_indices) == 0:
+            continue
+        mat_part = matrix[row_indices, column_indices]
+        # Get rid of fractions -- least common multiple of the denominators
+        # This greatly improves the performance of sympy's nullspace -- for
+        # whatever reason.
+        mat_part *= sp.lcm([sp.fraction(val)[1] for val in mat_part])
+        nullspace_part = np.array(mat_part.nullspace(**kwargs))
+        if len(nullspace_part) == 0:
+            continue
+        nullspace_part_extended = np.zeros((len(nullspace_part), n_cols),
+                                           dtype=object)
+        nullspace_part_extended[:, column_indices] = nullspace_part
+        nullspace.extend([sp.Matrix(vec) for vec in nullspace_part_extended])
+
+    return nullspace

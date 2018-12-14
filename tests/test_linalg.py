@@ -5,7 +5,9 @@ Tests for the Zassenhaus algorithm and basis intersection.
 """
 
 import pytest
-from kdotp_symmetry._linalg import zassenhaus, intersection_basis
+import sympy as sp
+
+from kdotp_symmetry._linalg import zassenhaus, intersection_basis, nullspace_blocked
 
 
 @pytest.mark.parametrize(
@@ -63,3 +65,19 @@ def test_intersection_basis(input_bases, output_basis):
     Test the basis intersection algorithm.
     """
     assert intersection_basis(*input_bases) == output_basis
+
+
+@pytest.mark.parametrize(
+    'input_matrix', [
+        ([[1, 1, 0], [0, 1, 0]]),
+        ([[1, 0, 0], [0, 1, 0], [0, 0, 1]]),
+        ([[1, 2, 3], [3, 4, 5], [6, 7, 8]]),
+        ([[0, 1], [0, 1], [0, 4]]),
+    ]
+)
+def test_nullspace_blocked(input_matrix):
+    """
+    Test that the result of "nullspace_blocked" matches the sympy result.
+    """
+    mat = sp.Matrix(input_matrix)
+    assert sorted(mat.nullspace()) == sorted(nullspace_blocked(mat))

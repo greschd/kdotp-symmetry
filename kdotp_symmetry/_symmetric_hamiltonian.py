@@ -12,7 +12,7 @@ from fsc.export import export
 
 from ._expr_utils import expr_to_vector, matrix_to_expr_operator
 from ._repr_utils import hermitian_to_vector, hermitian_basis, repr_to_matrix_operator, check_orthogonal, frobenius_product
-from ._linalg import intersection_basis
+from ._linalg import intersection_basis, nullspace_blocked
 from ._to_matrix import to_matrix
 from ._logging_setup import LOGGER
 
@@ -90,8 +90,8 @@ def symmetric_hamiltonian(
         # get Eig(F \ocross G, 1) basis
         mat = full_mat - sp.eye(full_dim)
         LOGGER.info('Calculating nullspace.')
-        mat.nullspace(simplify=sp.simplify)
-        curr_basis = np.array(mat.nullspace(simplify=sp.nsimplify)).tolist()
+        curr_basis = np.array(nullspace_blocked(mat, simplify=sp.nsimplify)
+                              ).tolist()
         if len(curr_basis) != _numeric_nullspace_dim(mat):
             raise ValueError(
                 'Analytic and numeric dimensions of the nullspace of the matrix {mat} do not match'
