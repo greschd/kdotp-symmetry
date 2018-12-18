@@ -55,9 +55,10 @@ def intersection_basis(*bases):
     return current_basis
 
 
+@enum.unique
 class _NodeType(enum.Enum):
-    ROW = enum.auto()
-    COLUMN = enum.auto()
+    ROW = 'row'
+    COLUMN = 'column'
 
 
 def nullspace_blocked(matrix, **kwargs):

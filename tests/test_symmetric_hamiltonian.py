@@ -38,8 +38,8 @@ PAULI_VEC = [sp.eye(2), *(sm.msigma(i) for i in range(1, 4))]
                     repr_has_cc=False
                 )
             ], kp.monomial_basis(1), 'auto', [
-                Matrix([[ky, 0], [0, kx]]),
                 Matrix([[kx, 0], [0, ky]]),
+                Matrix([[ky, 0], [0, kx]]),
                 Matrix([[0, kx + ky], [kx + ky, 0]]),
                 Matrix([[0, I * kx - I * ky], [-I * kx + I * ky, 0]]),
                 Matrix([[kz, 0], [0, kz]]),
