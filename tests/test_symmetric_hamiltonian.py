@@ -82,6 +82,11 @@ def test_symmetric_hamiltonian(
     """
     Test the method for calculating the symmetric Hamiltonian.
     """
-    assert kp.symmetric_hamiltonian(
-        *symmetry_operations, expr_basis=expr_basis, repr_basis=repr_basis
-    ) == result
+    assert sorted(
+        kp.symmetric_hamiltonian(
+            *symmetry_operations, expr_basis=expr_basis, repr_basis=repr_basis
+        ),
+        key=str
+    ) == sorted(
+        result, key=str
+    )
