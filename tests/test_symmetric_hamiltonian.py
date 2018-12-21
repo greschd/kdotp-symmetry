@@ -25,7 +25,8 @@ PAULI_VEC = [sp.eye(2), *(sm.msigma(i) for i in range(1, 4))]
                 sr.SymmetryOperation(
                     rotation_matrix=[[0, 1, 0], [1, 0, 0], [0, 0, 1]],
                     repr_matrix=[[0, 1], [1, 0]],
-                    repr_has_cc=False
+                    repr_has_cc=False,
+                    numeric=False
                 )
             ], kp.monomial_basis(0), 'auto',
             [Matrix([[1, 0], [0, 1]]),
@@ -35,7 +36,8 @@ PAULI_VEC = [sp.eye(2), *(sm.msigma(i) for i in range(1, 4))]
                 sr.SymmetryOperation(
                     rotation_matrix=[[0, 1, 0], [1, 0, 0], [0, 0, 1]],
                     repr_matrix=[[0, 1], [1, 0]],
-                    repr_has_cc=False
+                    repr_has_cc=False,
+                    numeric=False
                 )
             ], kp.monomial_basis(1), 'auto', [
                 Matrix([[kx, 0], [0, ky]]),
@@ -50,19 +52,22 @@ PAULI_VEC = [sp.eye(2), *(sm.msigma(i) for i in range(1, 4))]
                 sr.SymmetryOperation(
                     rotation_matrix=[[0, 1, 0], [1, 0, 0], [0, 0, -1]],
                     repr_matrix=sp.diag(I, -I, I, -I),
-                    repr_has_cc=False
+                    repr_has_cc=False,
+                    numeric=False
                 ),
                 sr.SymmetryOperation(
                     rotation_matrix=-sp.eye(3),
                     repr_matrix=sp.diag(1, 1, -1, -1),
-                    repr_has_cc=False
+                    repr_has_cc=False,
+                    numeric=False
                 ),
                 sr.SymmetryOperation(
                     rotation_matrix=sp.eye(3),
                     repr_matrix=TensorProduct(
                         sp.eye(2), sp.Matrix([[0, -1], [1, 0]])
                     ),
-                    repr_has_cc=True
+                    repr_has_cc=True,
+                    numeric=False
                 )
             ], kp.monomial_basis(0),
             [TensorProduct(p1, p2) for p1 in PAULI_VEC for p2 in PAULI_VEC], [
