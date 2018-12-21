@@ -20,19 +20,20 @@ basis = [TensorProduct(p1, p2) for p1 in pauli_vec for p2 in pauli_vec]
 c2y = sr.SymmetryOperation(
     rotation_matrix=[[0, 1, 0], [1, 0, 0], [0, 0, -1]],
     repr_matrix=sp.diag(I, -I, I, -I),
-    repr_has_cc=False
+    repr_has_cc=False,
+    numeric=False
 )
 
 parity = sr.SymmetryOperation(
     rotation_matrix=-sp.eye(3),
     repr_matrix=sp.diag(1, 1, -1, -1),
-    repr_has_cc=False
+    repr_has_cc=False,
 )
 
 time_reversal = sr.SymmetryOperation(
     rotation_matrix=sp.eye(3),
     repr_matrix=TensorProduct(sp.eye(2), sp.Matrix([[0, -1], [1, 0]])),
-    repr_has_cc=True
+    repr_has_cc=True,
 )
 
 

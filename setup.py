@@ -27,7 +27,7 @@ setup(
     'Calculating the general form of a k.p Hamiltonian with given symmetry constraints.',
     install_requires=[
         'sympy', 'numpy', 'scipy', 'fsc.export',
-        'symmetry-representation>=0.1', 'networkx>=2'
+        'symmetry-representation>=0.3', 'networkx>=2'
     ],
     extras_require={
         'dev': [

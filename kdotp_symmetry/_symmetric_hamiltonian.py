@@ -41,6 +41,10 @@ def symmetric_hamiltonian(
 
     :returns: Basis for the symmetric Hamiltonian, as a :py:class:`list` of :py:mod:`sympy` matrix expressions.
     """
+    if any(sym_op.numeric for sym_op in symmetry_operations):
+        raise ValueError(
+            'Symmetry operations used in kdotp-symmetry can not be numeric.'
+        )
     expr_dim = len(expr_basis)
     # for sympy or numpy matrices
     try:
