@@ -1,16 +1,17 @@
 language: python
 cache: pip
 python:
-    - "3.5"
-    - "3.6"
+  - "3.5"
+  - "3.6"
 
 install:
-    - pip install .[dev]
+  - pip install -U numpy
+  - pip install .[dev]
 
 # run tests
 script:
-    - cd tests
-    - py.test
+  - cd tests
+  - py.test
 
 jobs:
   include:
