@@ -46,6 +46,6 @@ setup(
         'Topic :: Scientific/Engineering :: Physics',
         'Development Status :: 4 - Beta'
     ],
-    license='GPL',
+    license='Apache 2.0',
     packages=['kdotp_symmetry']
 )

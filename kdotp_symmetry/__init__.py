@@ -2,7 +2,7 @@
 # Author:  Dominik Gresch <greschd@gmx.ch>
 """A tool for calculating the general form of a k.p Hamiltonian under given symmetry constraints."""
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 from ._expr_utils import *
 from ._repr_utils import *
