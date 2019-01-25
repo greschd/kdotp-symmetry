@@ -8,6 +8,10 @@ This is a tool to calculate the general form of a :math:`\mathbf{k}\cdot\mathbf{
 .. contents ::
     :local:
 
+Please cite:
+
+* *Identifying Topological Semimetals*, D. Gresch,  `PhD Thesis <https://doi.org/10.3929/ethz-b-000308602>`_.
+
 Usage
 -----
 
