@@ -1,22 +1,21 @@
 language: python
 cache: pip
 python:
-  - "3.5"
   - "3.6"
-
-install:
-  - pip install -U numpy
-  - pip install .[dev]
-
-# run tests
-script:
-  - cd tests
-  - py.test
-
+  - "3.7"
+  - "3.8"
+env:
+  - TEST_TYPE="tests"
+    INSTALL_TYPE="dev"
+  - TEST_TYPE="tests"
+    INSTALL_TYPE="dev_sdist"
 jobs:
   include:
-    - stage: compliance
-      script: pre-commit run --all-files
-stages:
-  - compliance
-  - test
+    - python: "3.7"
+      env:
+        - TEST_TYPE="precommit"
+          INSTALL_TYPE="dev"
+install:
+  - ./.travis-data/install_script.sh
+script:
+  - ./.travis-data/test_script.sh

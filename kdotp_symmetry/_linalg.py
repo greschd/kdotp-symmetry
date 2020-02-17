@@ -27,10 +27,10 @@ def zassenhaus(basis_a, basis_b):
         # Set up the Zassenhaus matrix from the given bases.
         A = sp.Matrix(basis_a)
         B = sp.Matrix(basis_b)
-        dim = A.shape[1]  # pylint: disable=unsubscriptable-object
-        if B.shape[1] != dim:  # pylint: disable=unsubscriptable-object
+        dim = A.shape[1]
+        if B.shape[1] != dim:
             raise ValueError('Inconsistent dimensions of the two bases given.')
-        zassenhaus_mat = A.row_join(A).col_join(B.row_join(sp.zeros(*B.shape)))  # pylint: disable=not-an-iterable
+        zassenhaus_mat = A.row_join(A).col_join(B.row_join(sp.zeros(*B.shape)))
         mat, pivot = zassenhaus_mat.rref()
 
         # idx is the row index of the first row belonging to the intersection basis
