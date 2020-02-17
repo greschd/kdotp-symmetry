@@ -20,7 +20,7 @@ with open('./kdotp_symmetry/__init__.py', 'r') as f:
 setup(
     name='kdotp-symmetry',
     version=VERSION,
-    url='http://z2pack.ethz.ch/kdotp-symmetry',
+    url='https://kdotp-symmetry.greschd.ch',
     author='Dominik Gresch',
     author_email='greschd@gmx.ch',
     description=
@@ -32,7 +32,7 @@ setup(
     python_requires=">=3.6",
     extras_require={
         'dev': [
-            'pytest', 'yapf==0.29', 'pre-commit==2.0', 'prospector==1.2.0',
+            'pytest', 'yapf==0.29', 'pre-commit', 'prospector==1.2.0',
             'pylint==2.4.4', 'sphinx', 'sphinx_rtd_theme'
         ]
     },

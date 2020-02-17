@@ -58,7 +58,7 @@ In order to run the code, we must first specify the symmetries as described abov
 
 * ``repr_has_cc``: A boolean flag which determines whether the representation is given by :math:`U` alone, or if it contains a complex conjugation (i.e., the representation is given by :math:`U\hat{K}`).
 
-A more detailed description can be found on the `symmetry_representation documentation <http://z2pack.ethz.ch/symmetry-representation>`_ .
+A more detailed description can be found on the `symmetry_representation documentation <https://symmetry-representation.greschd.ch>`_ .
 
 The following code creates the symmetries described above:
 
