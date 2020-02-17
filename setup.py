@@ -6,8 +6,8 @@ Usage: pip install -e .[dev]
 
 import re
 import sys
-if sys.version_info < (3, 5):
-    raise 'must use Python version 3.5 or higher'
+if sys.version_info < (3, 6):
+    raise 'must use Python version 3.6 or higher'
 
 from setuptools import setup
 
@@ -29,6 +29,7 @@ setup(
         'sympy', 'numpy', 'scipy', 'fsc.export',
         'symmetry-representation>=0.3', 'networkx>=2'
     ],
+    python_requires=">=3.6",
     extras_require={
         'dev': [
             'pytest', 'yapf==0.29', 'pre-commit==2.0', 'prospector==1.2.0',
@@ -40,8 +41,9 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Natural Language :: English', 'Operating System :: Unix',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Intended Audience :: Science/Research',
         'Topic :: Scientific/Engineering :: Physics',
         'Development Status :: 4 - Beta'
