@@ -27,3 +27,6 @@ tests/.coverage
 
 # profiling
 *.lprof
+
+# Editors
+.vscode

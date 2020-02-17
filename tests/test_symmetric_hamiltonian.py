@@ -92,6 +92,4 @@ def test_symmetric_hamiltonian(
             *symmetry_operations, expr_basis=expr_basis, repr_basis=repr_basis
         ),
         key=str
-    ) == sorted(
-        result, key=str
-    )
+    ) == sorted(result, key=str)

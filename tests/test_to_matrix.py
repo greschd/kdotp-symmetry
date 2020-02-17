@@ -38,8 +38,8 @@ from kdotp_symmetry._repr_utils import hermitian_to_vector, hermitian_basis, rep
                       )
         ),
         (
-            repr_to_matrix_operator(sp.Matrix([[0, 1], [1, 0]])),
-            hermitian_basis(2), hermitian_to_vector,
+            repr_to_matrix_operator(sp.Matrix([[0, 1], [1, 0]])
+                                    ), hermitian_basis(2), hermitian_to_vector,
             sp.Matrix([
                 [0, 1, 0, 0],
                 [1, 0, 0, 0],
