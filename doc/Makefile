@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXBUILD   = sphinx-build
 VERSION = $(shell cat ../version.txt | grep -o -E [0-9]+.[0-9]+)
-HTMLBUILDDIR  = ../../Z2Pack_website/web/kdotp-symmetry
+HTMLBUILDDIR  = ./build/html
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)

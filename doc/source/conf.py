@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Z2Pack documentation build configuration file, created by
+# Documentation build configuration file, created by
 # sphinx-quickstart on Fri Oct 10 02:14:52 2014.
 #
 # This file is execfile()d with the current directory set to its
@@ -40,7 +40,7 @@ intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
     'sympy': ('http://docs.sympy.org/latest', None),
     'symmetry-representation':
-    ('https://symmetry-representation.greschd.ch/', None),
+    ('https://symmetry-representation.greschd.ch/en/latest', None),
 }
 
 # Add any paths that contain templates here, relative to this directory.
