@@ -1,11 +1,12 @@
-- repo: git://github.com/pre-commit/mirrors-yapf
-  sha: v0.17.0
+repos:
+- repo: https://github.com/pre-commit/mirrors-yapf
+  rev: v0.17.0
   hooks:
   - id: yapf
     language: system
 
-- repo: git://github.com/guykisel/prospector-mirror
-  sha: b27f281eb9398fc8504415d7fbdabf119ea8c5e1
+- repo: https://github.com/guykisel/prospector-mirror
+  rev: b27f281eb9398fc8504415d7fbdabf119ea8c5e1
   hooks:
   - id: prospector
     language: system
